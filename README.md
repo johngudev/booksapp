@@ -1,5 +1,5 @@
 Install php 8.2 with homebrew
-`brew install php@8.2`
+    `brew install php@8.2`
 
 Make sure that it works
 `php -v`
