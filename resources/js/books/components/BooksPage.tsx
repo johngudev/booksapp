@@ -32,7 +32,7 @@ const BooksPage = () => {
         <>
             <SearchBar
                 onChange={({ target: { value } }) => setSearchValue(value)}
-                onSearchClick={(evt) => {
+                onSearch={(evt) => {
                     evt.preventDefault();
                     filterBooks();
                 }}
