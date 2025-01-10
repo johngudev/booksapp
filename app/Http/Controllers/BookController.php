@@ -102,7 +102,8 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
-        return $book->load('meetings', 'users');
+        return $book;
+        // return $book->load('meetings', 'users');
     }
 
     public function update(Request $request, Book $book)
