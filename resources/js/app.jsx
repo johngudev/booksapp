@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Book from '../views/components/Book';
+import BooksPage from './books/components/BooksPage';
 
-const App = () => {
-    return <Book/>;
+const BooksApp = () => {
+    return <BooksPage />;
 };
 
 const MeetingsApp = () => {
@@ -15,14 +15,11 @@ const MeetingsApp = () => {
 const meetingsRoot = document.getElementById('meetings-root');
 const root = document.getElementById('react-root');
 
-
 if (root) {
     // console.log(React)
     ReactDOM.createRoot(root).render(<App />);
-
-    }
+}
 
 if (meetingsRoot) {
     ReactDOM.createRoot(meetingsRoot).render(<MeetingsApp />);
 }
-
