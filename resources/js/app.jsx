@@ -17,7 +17,7 @@ const root = document.getElementById('react-root');
 
 if (root) {
     // console.log(React)
-    ReactDOM.createRoot(root).render(<App />);
+    ReactDOM.createRoot(root).render(<BooksApp />);
 }
 
 if (meetingsRoot) {
