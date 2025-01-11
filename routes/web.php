@@ -43,4 +43,9 @@ Route::get('/books-example', [BookController::class, 'example'])->name('books.ex
 Route::get('/meetings', [MeetingController::class, 'list'])->name('meetings.list')
     ->middleware(['auth', 'verified']);
 
+Route::middleware('auth')->get('/api/books/link/{book}',[BookController::class, 'linkedUsers']);
+Route::middleware('auth')->post('/api/books/link/{book}',[BookController::class, 'linkToUser']);
+Route::middleware('auth')->delete('/api/books/link/{book}',[BookController::class, 'unlinkFromUser']);
+
+
 require __DIR__.'/auth.php';

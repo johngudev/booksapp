@@ -136,4 +136,30 @@ class BookController extends Controller
         $books = Book::all(); // Fetch all books
         return view('books-example', compact('books')); // Return the web view
     }
+
+    public function linkToUser(Book $book)
+    {
+        $user = request()->user();
+
+        $user->books()->attach($book->id);
+
+        return response()->json(['message' => 'Book attached to user successfully']);
+
+    }
+
+    public function unlinkFromUser(Book $book)
+    {
+        $user = request()->user();
+
+        $user->books()->detach($book->id);
+
+        return response()->json(['message' => 'Book detached from user successfully']);
+
+    }
+
+    public function linkedUsers(Book $book)
+    {
+        return $book->users;
+    }
+
 }

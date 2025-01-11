@@ -32,3 +32,5 @@ Route::apiResource('meetings', MeetingController::class);
 // Comment routes
 Route::apiResource('comments', CommentController::class);
 
+
+
