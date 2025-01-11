@@ -95,6 +95,7 @@ class BookController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'author' => 'required|string|max:255',
+            'image_url' => 'nullable'
         ]);
 
         return Book::create($validated);
@@ -111,6 +112,7 @@ class BookController extends Controller
         $validated = $request->validate([
             'title' => 'sometimes|required|string|max:255',
             'author' => 'sometimes|required|string|max:255',
+            'image_url' => 'required'
         ]);
 
         $book->update($validated);
