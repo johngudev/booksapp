@@ -47,5 +47,9 @@ Route::middleware('auth')->get('/api/books/link/{book}',[BookController::class, 
 Route::middleware('auth')->post('/api/books/link/{book}',[BookController::class, 'linkToUser']);
 Route::middleware('auth')->delete('/api/books/link/{book}',[BookController::class, 'unlinkFromUser']);
 
+Route::middleware('auth')->get('/api/meetings/link/{meeting}',[MeetingsController::class, 'linkedUsers']);
+Route::middleware('auth')->post('/api/meetings/link/{meeting}',[MeetingsController::class, 'linkToUser']);
+Route::middleware('auth')->delete('/api/meetings/link/{meeting}',[MeetingsController::class, 'unlinkFromUser']);
+
 
 require __DIR__.'/auth.php';

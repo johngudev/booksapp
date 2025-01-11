@@ -141,7 +141,7 @@ class BookController extends Controller
     {
         $user = request()->user();
 
-        $user->books()->attach($book->id);
+        $user->books()->syncWithoutDetaching([$book->id]);
 
         return response()->json(['message' => 'Book attached to user successfully']);
 
