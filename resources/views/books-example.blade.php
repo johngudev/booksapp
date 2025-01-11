@@ -14,7 +14,7 @@
         </div>
     </form>    
 
-    <div class="py-12 max-w-6xl mx-auto px-6 lg:px-8 flex md:flex-row flex-column flex-col gap-3 flex-wrap">
+    <div class="py-12 max-w-6xl mx-auto px-6 lg:px-8 flex md:flex-row flex-column flex-col gap-3 flex-wrap ">
         @foreach($books as $book)
         <div class="md:w-1/6 bg-white rounded-lg shadow-lg overflow-hidden">
             <!-- Image -->

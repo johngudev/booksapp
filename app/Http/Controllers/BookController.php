@@ -95,6 +95,7 @@ class BookController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'author' => 'required|string|max:255',
+            'image_url' => 'nullable'
         ]);
 
         return Book::create($validated);
@@ -111,6 +112,7 @@ class BookController extends Controller
         $validated = $request->validate([
             'title' => 'sometimes|required|string|max:255',
             'author' => 'sometimes|required|string|max:255',
+            'image_url' => 'required'
         ]);
 
         $book->update($validated);
@@ -136,4 +138,30 @@ class BookController extends Controller
         $books = Book::all(); // Fetch all books
         return view('books-example', compact('books')); // Return the web view
     }
+
+    public function linkToUser(Book $book)
+    {
+        $user = request()->user();
+
+        $user->books()->syncWithoutDetaching([$book->id]);
+
+        return response()->json(['message' => 'Book attached to user successfully']);
+
+    }
+
+    public function unlinkFromUser(Book $book)
+    {
+        $user = request()->user();
+
+        $user->books()->detach($book->id);
+
+        return response()->json(['message' => 'Book detached from user successfully']);
+
+    }
+
+    public function linkedUsers(Book $book)
+    {
+        return $book->users;
+    }
+
 }

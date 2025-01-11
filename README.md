@@ -38,5 +38,12 @@ Run npm build
 Go to booksapp.test
 
 
+How to reset the database.
 
+First go to the database/migrations/create_users_table.php file and uncomment the user file stuff.
+
+`php artisan migrate:fresh`
+`php artisan db:seed`
+`php artisan db:seed --class=MeetingsTableSeeder`
+You also need to re-register your user after this as well.
 

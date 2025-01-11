@@ -22,9 +22,8 @@ class MeetingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
     }
 
     /**
@@ -35,7 +34,7 @@ class MeetingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Meeting::create($request);
     }
 
     /**
@@ -46,7 +45,7 @@ class MeetingController extends Controller
      */
     public function show(Meeting $meeting)
     {
-        //
+        return $meeting;
     }
 
     /**
@@ -86,5 +85,31 @@ class MeetingController extends Controller
     public function list()
     {
         return view('meetings');
+    }
+
+
+    public function linkToUser(Meeting $meeting)
+    {
+        $user = request()->user();
+
+        $user->meetings()->syncWithoutDetaching([$meeting->id]);
+
+        return response()->json(['message' => 'Meeting attached to user successfully']);
+
+    }
+
+    public function unlinkFromUser(Meeting $meeting)
+    {
+        $user = request()->user();
+
+        $user->meetings()->detach($meeting->id);
+
+        return response()->json(['message' => 'Meeting detached from user successfully']);
+
+    }
+
+    public function linkedUsers(Meeting $meeting)
+    {
+        return $meeting->users;
     }
 }

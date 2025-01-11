@@ -21,7 +21,7 @@ class BooksTableSeeder extends Seeder
         DB::table('books')->truncate();           // Truncate the table
         DB::statement('SET FOREIGN_KEY_CHECKS=1;'); // Re-enable foreign key checks
         
-        for($i = 0; $i < 25; $i++) {
+        for($i = 0; $i < 1; $i++) {
             DB::table('books')->insert([
                 [
                     'title' => 'To Kill a Mockingbird',
@@ -48,6 +48,13 @@ class BooksTableSeeder extends Seeder
                     'title' => 'The Great Gatsby',
                     'author' => 'F. Scott Fitzgerald',
                     'image_url' => 'https://images-na.ssl-images-amazon.com/images/P/0743273567.01._SX360_SCLZZZZZZZ_.jpg',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'title' => 'The Sun Also Rises',
+                    'author' => 'Ernest Hemingway',
+                    'image_url' => 'https://ia600100.us.archive.org/view_archive.php?archive=/5/items/l_covers_0012/l_covers_0012_62.zip&file=0012627101-L.jpg',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
