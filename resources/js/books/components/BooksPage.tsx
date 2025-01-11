@@ -45,6 +45,7 @@ const BooksPage = () => {
                     return (
                         <BookCard
                             author={author}
+                            id={id}
                             imageUrl={imageUrl}
                             key={`${id}:${title}:${author}`}
                             title={title}
