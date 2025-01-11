@@ -51,5 +51,6 @@ Route::middleware('auth')->get('/api/meetings/link/{meeting}',[MeetingsControlle
 Route::middleware('auth')->post('/api/meetings/link/{meeting}',[MeetingsController::class, 'linkToUser']);
 Route::middleware('auth')->delete('/api/meetings/link/{meeting}',[MeetingsController::class, 'unlinkFromUser']);
 
+Route::get('/easy', function() { return view('easy-form');});
 
 require __DIR__.'/auth.php';
