@@ -58,6 +58,20 @@ class BooksTableSeeder extends Seeder
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
+                [
+                    'title' => 'War and Peace',
+                    'author' => 'Leo Tolstoy',
+                    'image_url' => 'https://images-na.ssl-images-amazon.com/images/P/1400079985.01._SX360_SCLZZZZZZZ_.jpg',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'title' => "Swann's Way",
+                    'author' => 'Marcel Proust',
+                    'image_url' => 'https://images-na.ssl-images-amazon.com/images/P/0142437964.01._SX360_SCLZZZZZZZ_.jpg',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
             ]);
     
         }
