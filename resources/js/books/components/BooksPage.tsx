@@ -1,18 +1,20 @@
-import { useEffect, useState } from 'react';
-import { fetchAllBooks } from '../api';
+import { useContext, useEffect, useState } from 'react';
+import { fetchAllBooks, fetchAllUserLikes } from '../api';
 import BookCard from './BookCard';
 import SearchBar from '../../shared/components/SearchBar';
+import { BooksContext } from '../context/BooksContext';
 
 const BooksPage = () => {
-    const [books, setBooks] = useState(null);
     const [searchValue, setSearchValue] = useState('');
-    const [filteredBooks, setFilteredBooks] = useState(books);
+    const [filteredBooks, setFilteredBooks] = useState(null);
+
+    const { books, setBooks } = useContext(BooksContext);
 
     useEffect(() => {
         fetchAllBooks()
             .then((res) => {
                 setBooks(res);
-                setFilteredBooks(res);
+                setFilteredBooks(Object.values(res));
             })
             .catch(() => {
                 console.log('error'); // TODO: error handling
@@ -25,7 +27,7 @@ const BooksPage = () => {
                 searchValue.toLowerCase()
             )
         );
-        setFilteredBooks(newBooks);
+        setFilteredBooks(Object.values(newBooks));
     };
 
     return books ? (
