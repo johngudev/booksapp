@@ -57,7 +57,7 @@ Route::middleware('auth')->get('/api/meetings/link/{meeting}',[MeetingController
 Route::middleware('auth')->post('/api/meetings/link/{meeting}',[MeetingController::class, 'linkToUser']);
 Route::middleware('auth')->delete('/api/meetings/link/{meeting}',[MeetingController::class, 'unlinkFromUser']);
 
-Route::middleware('auth')->post('/api/session/meetings',[MeetingController::class, 'storeFromSession'])->name('session.meetings.store');
+Route::middleware('auth')->post('/api/session/meetings/host',[MeetingController::class, 'storeFromSession'])->name('session.meetings.host.store');
 
 Route::get('/easy', function() { return view('easy-form');});
 

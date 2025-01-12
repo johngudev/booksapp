@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h2>Make a Meeting</h2>
-                    <form action="{{ route('session.meetings.store') }}" method="POST" class="space-y-6">
+                    <form action="{{ route('session.meetings.host.store') }}" method="POST" class="space-y-6">
                         <!-- CSRF Token -->
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
