@@ -43,6 +43,9 @@ Route::get('/books-example', [BookController::class, 'example'])->name('books.ex
 Route::get('/meetings', [MeetingController::class, 'list'])->name('meetings.list')
     ->middleware(['auth', 'verified']);
 
+Route::get('/meetings/create', [MeetingController::class, 'create'])->name('meetings.create')
+    ->middleware(['auth', 'verified']);
+
 Route::middleware('auth')->get('/api/books/link/{book}',[BookController::class, 'linkedUsers']);
 
 Route::middleware('auth')->get('/api/session/books', [BookController::class, 'currentUserLinkedBooks'])->name('session.books.index');
@@ -50,10 +53,11 @@ Route::middleware('auth')->get('/api/session/books/{book}', [BookController::cla
 Route::middleware('auth')->post('/api/session/books/{book}',[BookController::class, 'linkToUser']);
 Route::middleware('auth')->delete('/api/session/books/{book}',[BookController::class, 'unlinkFromUser']);
 
+Route::middleware('auth')->get('/api/meetings/link/{meeting}',[MeetingController::class, 'linkedUsers']);
+Route::middleware('auth')->post('/api/meetings/link/{meeting}',[MeetingController::class, 'linkToUser']);
+Route::middleware('auth')->delete('/api/meetings/link/{meeting}',[MeetingController::class, 'unlinkFromUser']);
 
-Route::middleware('auth')->get('/api/meetings/link/{meeting}',[MeetingsController::class, 'linkedUsers']);
-Route::middleware('auth')->post('/api/meetings/link/{meeting}',[MeetingsController::class, 'linkToUser']);
-Route::middleware('auth')->delete('/api/meetings/link/{meeting}',[MeetingsController::class, 'unlinkFromUser']);
+Route::middleware('auth')->post('/api/session/meetings',[MeetingController::class, 'storeFromSession'])->name('session.meetings.store');
 
 Route::get('/easy', function() { return view('easy-form');});
 

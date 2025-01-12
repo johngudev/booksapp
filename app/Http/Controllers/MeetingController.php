@@ -24,6 +24,7 @@ class MeetingController extends Controller
      */
     public function create(Request $request)
     {
+        return view('make-meeting');
     }
 
     /**
@@ -34,7 +35,22 @@ class MeetingController extends Controller
      */
     public function store(Request $request)
     {
-        return Meeting::create($request);
+        $user_id = request()->user()->id;
+    
+        // Merge the user_id into the request data
+        $data = $request->all();
+        $data['user_id'] = $user_id;
+    
+        // Validate the incoming data
+        $validatedData = $request->validate([
+            'book_id' => 'required|exists:books,id',
+            'zoom_link' => 'required',
+            'date_time' => 'required|date',
+            'description' => 'required',
+        ]);
+    
+        // Store the meeting in the database
+        return Meeting::create(array_merge($validatedData, ['user_id' => $user_id]));
     }
 
     /**
@@ -111,5 +127,25 @@ class MeetingController extends Controller
     public function linkedUsers(Meeting $meeting)
     {
         return $meeting->users;
+    }
+
+    public function storeFromSession(Request $request)
+    {
+        $user_id = request()->user()->id;
+    
+        // Merge the user_id into the request data
+        $data = $request->all();
+        $data['user_id'] = $user_id;
+    
+        // Validate the incoming data
+        $validatedData = $request->validate([
+            'book_id' => 'required|exists:books,id',
+            'zoom_link' => 'required',
+            'date_time' => 'required|date',
+            'description' => 'required',
+        ]);
+    
+        // Store the meeting in the database
+        return Meeting::create(array_merge($validatedData, ['user_id' => $user_id]));
     }
 }
