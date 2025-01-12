@@ -45,7 +45,7 @@ Route::get('/meetings', [MeetingController::class, 'list'])->name('meetings.list
 
 Route::middleware('auth')->get('/api/books/link/{book}',[BookController::class, 'linkedUsers']);
 
-Route::middleware('auth')->get('/api/session/books', [BookController::class, 'currentUserLinkedBooks']);
+Route::middleware('auth')->get('/api/session/books', [BookController::class, 'currentUserLinkedBooks'])->name('session.books.index');
 Route::middleware('auth')->get('/api/session/books/{book}', [BookController::class, 'currentUserIfLinked']);
 Route::middleware('auth')->post('/api/session/books/{book}',[BookController::class, 'linkToUser']);
 Route::middleware('auth')->delete('/api/session/books/{book}',[BookController::class, 'unlinkFromUser']);
