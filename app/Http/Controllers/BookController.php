@@ -164,4 +164,12 @@ class BookController extends Controller
         return $book->users;
     }
 
+    public function currentUserLinkedBooks()
+    {
+        $user = request()->user();
+
+        return $user->books;
+
+    }
+
 }
