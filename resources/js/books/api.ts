@@ -1,5 +1,5 @@
 export async function fetchAllBooks() {
-    const res = await fetch('https://novelglot.com/api/books');
+    const res = await fetch('http://booksapp.test/api/books');
     if (!res.ok) {
         throw new Error(`Response status: ${res.status}`);
     }
