@@ -164,4 +164,18 @@ class BookController extends Controller
         return $book->users;
     }
 
+    public function currentUserLinkedBooks()
+    {
+        $user = request()->user();
+
+        return $user->books;
+    }
+
+    public  function currentUserIfLinked(Book $book)
+    {
+        $user = request()->user();
+
+        return response()->json(['result' => $user->books->contains($book)]);
+    }
+
 }

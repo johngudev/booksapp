@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form action="/api/books" method="POST" class="space-y-6">
+                    <form action="{{ route('books.store') }}" method="POST" class="space-y-6">
                         <!-- CSRF Token -->
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -85,6 +85,22 @@
                     </form>
                 </div>
             </div>
+
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-6">
+        <h2 class="text-2xl font-bold text-center mb-4">Submit Book Details</h2>
+
+        <form action="/api/session/books/1" method="POST" class="space-y-4">
+            @csrf <!-- Add CSRF token if needed in your Laravel backend -->
+            
+
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
 
         </div>
     </div>
