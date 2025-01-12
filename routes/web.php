@@ -44,10 +44,12 @@ Route::get('/meetings', [MeetingController::class, 'list'])->name('meetings.list
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->get('/api/books/link/{book}',[BookController::class, 'linkedUsers']);
-Route::middleware('auth')->post('/api/books/link/{book}',[BookController::class, 'linkToUser']);
-Route::middleware('auth')->delete('/api/books/link/{book}',[BookController::class, 'unlinkFromUser']);
 
 Route::middleware('auth')->get('/api/session/books', [BookController::class, 'currentUserLinkedBooks']);
+Route::middleware('auth')->get('/api/session/books/{book}', [BookController::class, 'currentUserIfLinked']);
+Route::middleware('auth')->post('/api/session/books/{book}',[BookController::class, 'linkToUser']);
+Route::middleware('auth')->delete('/api/session/books/{book}',[BookController::class, 'unlinkFromUser']);
+
 
 Route::middleware('auth')->get('/api/meetings/link/{meeting}',[MeetingsController::class, 'linkedUsers']);
 Route::middleware('auth')->post('/api/meetings/link/{meeting}',[MeetingsController::class, 'linkToUser']);
