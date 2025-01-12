@@ -2,12 +2,14 @@ import { useContext, useEffect, useState } from 'react';
 import { fetchAllBooks, fetchAllUserLikes } from '../api';
 import BookCard from './BookCard';
 import SearchBar from '../../shared/components/SearchBar';
+import { UserLikesContext } from '../context/UserLikesContext';
 import { BooksContext } from '../context/BooksContext';
 
 const BooksPage = () => {
     const [searchValue, setSearchValue] = useState('');
     const [filteredBooks, setFilteredBooks] = useState(null);
 
+    const { userLikes, setUserLikes } = useContext(UserLikesContext);
     const { books, setBooks } = useContext(BooksContext);
 
     useEffect(() => {
@@ -15,6 +17,15 @@ const BooksPage = () => {
             .then((res) => {
                 setBooks(res);
                 setFilteredBooks(Object.values(res));
+            })
+            .catch(() => {
+                console.log('error'); // TODO: error handling
+            });
+
+        fetchAllUserLikes()
+            .then((res) => {
+                setUserLikes(res);
+                console.log('user likes', res);
             })
             .catch(() => {
                 console.log('error'); // TODO: error handling
@@ -30,7 +41,7 @@ const BooksPage = () => {
         setFilteredBooks(Object.values(newBooks));
     };
 
-    return books ? (
+    return books && userLikes ? (
         <>
             <SearchBar
                 onChange={({ target: { value } }) => setSearchValue(value)}
