@@ -17,7 +17,7 @@ export async function fetchAllBooks() {
 }
 
 export async function fetchAllUserLikes() {
-    const res = await fetch('http://novelglot.com/api/session/books');
+    const res = await fetch('https://novelglot.com/api/session/books');
     if (!res.ok) {
         throw new Error(`Response status: ${res.status}`);
     }
@@ -30,7 +30,7 @@ export async function fetchAllUserLikes() {
 
 export async function likeBook(bookId: number) {
     const res = await fetch(
-        `http://novelglot.com/api/session/books/${bookId}`,
+        `https://novelglot.com/api/session/books/${bookId}`,
         {
             method: 'POST',
             headers: {
@@ -49,7 +49,7 @@ export async function likeBook(bookId: number) {
 
 export async function unLikeBook(bookId: number) {
     const res = await fetch(
-        `http://novelglot.com/api/session/books/${bookId}`,
+        `https://novelglot.com/api/session/books/${bookId}`,
         {
             method: 'DELETE',
             headers: {
