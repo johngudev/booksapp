@@ -52,7 +52,7 @@ const BooksPage = () => {
                 placeholder="Search for a book"
                 value={searchValue}
             />
-            <div className="py-12 max-w-6xl mx-auto px-6 lg:px-8 flex md:flex-row flex-column flex-col gap-3 flex-wrap justify-center">
+            <div className="py-12 max-w-6xl mx-auto px-6 lg:px-8 flex md:flex-row flex-row gap-3 flex-wrap justify-center">
                 {filteredBooks.map((book) => {
                     const { id, image_url: imageUrl, author, title } = book;
                     return (

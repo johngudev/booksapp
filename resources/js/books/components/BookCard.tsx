@@ -37,7 +37,7 @@ const BookCard = ({
     const liked = userLikes[id];
 
     return (
-        <div className="flex flex-col md:w-1/6 bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="flex flex-col w-2/5 md:w-1/6 bg-white rounded-lg shadow-lg overflow-hidden">
             <img
                 src={imageUrl}
                 alt="Book cover"
