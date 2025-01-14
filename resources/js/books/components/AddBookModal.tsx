@@ -69,7 +69,7 @@ export default function AddBookModal({ onClose }) {
                 <form className="space-y-6" onSubmit={onSubmit}>
                     {/* Modal content */}
                     <div id="body" className="mb-4">
-                        <div>
+                        <div className="my-3">
                             <label
                                 htmlFor="title"
                                 className="block text-sm font-medium text-gray-700"
@@ -80,12 +80,12 @@ export default function AddBookModal({ onClose }) {
                                 type="text"
                                 id="title"
                                 name="title"
-                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 placeholder="Enter the book title"
                                 required
                             />
                         </div>
-                        <div>
+                        <div className="my-3">
                             <label
                                 htmlFor="author"
                                 className="block text-sm font-medium text-gray-700"
@@ -96,12 +96,12 @@ export default function AddBookModal({ onClose }) {
                                 type="text"
                                 id="author"
                                 name="author"
-                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 placeholder="Enter the author's name"
                                 required
                             />
                         </div>
-                        <div>
+                        <div className="my-3">
                             <label
                                 htmlFor="imageUrl"
                                 className="block text-sm font-medium text-gray-700"
@@ -112,7 +112,7 @@ export default function AddBookModal({ onClose }) {
                                 type="url"
                                 id="image_url"
                                 name="image_url"
-                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 placeholder="Enter the image URL"
                             />
                         </div>
