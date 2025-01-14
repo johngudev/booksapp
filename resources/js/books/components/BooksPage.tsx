@@ -40,12 +40,13 @@ const BooksPage = () => {
     }, [books]);
 
     const filterBooks = () => {
-        const newBooks = books.filter(({ author, title }) =>
+        console.log('filtering books');
+        const newBooks = Object.values(books).filter(({ author, title }) =>
             `${author.toLowerCase()} ${title.toLowerCase()}`.includes(
                 searchValue.toLowerCase()
             )
         );
-        setFilteredBooks(Object.values(newBooks));
+        setFilteredBooks(newBooks);
     };
 
     return books && userLikes ? (
@@ -71,18 +72,27 @@ const BooksPage = () => {
                     </button>
                 </div>
                 <div className="mt-12 flex md:flex-row flex-column flex-col gap-3 flex-wrap justify-center">
-                    {filteredBooks.map((book) => {
-                        const { id, image_url: imageUrl, author, title } = book;
-                        return (
-                            <BookCard
-                                author={author}
-                                id={id}
-                                imageUrl={imageUrl}
-                                key={`${id}:${title}:${author}`}
-                                title={title}
-                            />
-                        );
-                    })}
+                    {filteredBooks.length ? (
+                        filteredBooks.map((book) => {
+                            const {
+                                id,
+                                image_url: imageUrl,
+                                author,
+                                title,
+                            } = book;
+                            return (
+                                <BookCard
+                                    author={author}
+                                    id={id}
+                                    imageUrl={imageUrl}
+                                    key={`${id}:${title}:${author}`}
+                                    title={title}
+                                />
+                            );
+                        })
+                    ) : (
+                        <p>No results.</p>
+                    )}
                 </div>
             </div>
             {showAddBookModal && (
