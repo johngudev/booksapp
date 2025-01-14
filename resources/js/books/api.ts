@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 const csrfToken = document
     .querySelector('meta[name="csrf-token"]')
     .getAttribute('content');
@@ -58,6 +56,36 @@ export async function unLikeBook(bookId: number) {
             },
         }
     );
+    if (!res.ok) {
+        throw new Error(`Response status: ${res.status}`);
+    }
+
+    const json = await res.json();
+    return json;
+}
+
+export async function addBook({
+    author,
+    title,
+    image_url,
+}: {
+    author: string;
+    title: string;
+    image_url?: string;
+}) {
+    const res = await fetch(`http://booksapp.test/api/books`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken,
+        },
+        body: JSON.stringify({
+            author,
+            title,
+            image_url,
+        }),
+    });
+
     if (!res.ok) {
         throw new Error(`Response status: ${res.status}`);
     }
