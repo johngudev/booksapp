@@ -1,13 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
+import { UserLikesContext } from '../context/UserLikesContext';
+import { BooksContext } from '../context/BooksContext';
 import { fetchAllBooks, fetchAllUserLikes } from '../api';
 import BookCard from './BookCard';
 import SearchBar from '../../shared/components/SearchBar';
-import { UserLikesContext } from '../context/UserLikesContext';
-import { BooksContext } from '../context/BooksContext';
+import AddBookModal from './AddBookModal';
 
 const BooksPage = () => {
     const [searchValue, setSearchValue] = useState('');
     const [filteredBooks, setFilteredBooks] = useState(null);
+    const [showAddBookModal, setShowAddBookModal] = useState(false);
 
     const { userLikes, setUserLikes } = useContext(UserLikesContext);
     const { books, setBooks } = useContext(BooksContext);
@@ -25,12 +27,17 @@ const BooksPage = () => {
         fetchAllUserLikes()
             .then((res) => {
                 setUserLikes(res);
-                console.log('user likes', res);
             })
             .catch(() => {
                 console.log('error'); // TODO: error handling
             });
     }, []);
+
+    useEffect(() => {
+        if (books) {
+            setFilteredBooks(Object.values(books));
+        }
+    }, [books]);
 
     const filterBooks = () => {
         const newBooks = books.filter(({ author, title }) =>
@@ -43,29 +50,44 @@ const BooksPage = () => {
 
     return books && userLikes ? (
         <>
-            <SearchBar
-                onChange={({ target: { value } }) => setSearchValue(value)}
-                onSearch={(evt) => {
-                    evt.preventDefault();
-                    filterBooks();
-                }}
-                placeholder="Search for a book"
-                value={searchValue}
-            />
-            <div className="py-12 max-w-6xl mx-auto px-6 lg:px-8 flex md:flex-row flex-column flex-col gap-3 flex-wrap justify-center">
-                {filteredBooks.map((book) => {
-                    const { id, image_url: imageUrl, author, title } = book;
-                    return (
-                        <BookCard
-                            author={author}
-                            id={id}
-                            imageUrl={imageUrl}
-                            key={`${id}:${title}:${author}`}
-                            title={title}
-                        />
-                    );
-                })}
+            <div className="mt-12 mx-auto px-6 lg:px-8">
+                <div className="flex flex-row justify-center gap-4">
+                    <SearchBar
+                        onChange={({ target: { value } }) =>
+                            setSearchValue(value)
+                        }
+                        onSearch={(evt) => {
+                            evt.preventDefault();
+                            filterBooks();
+                        }}
+                        placeholder="Search for a book"
+                        value={searchValue}
+                    />
+                    <button
+                        className="underline hover:no-underline transition ease-in-out delay-150 duration-300"
+                        onClick={() => setShowAddBookModal(true)}
+                    >
+                        Add books
+                    </button>
+                </div>
+                <div className="mt-12 flex md:flex-row flex-column flex-col gap-3 flex-wrap justify-center">
+                    {filteredBooks.map((book) => {
+                        const { id, image_url: imageUrl, author, title } = book;
+                        return (
+                            <BookCard
+                                author={author}
+                                id={id}
+                                imageUrl={imageUrl}
+                                key={`${id}:${title}:${author}`}
+                                title={title}
+                            />
+                        );
+                    })}
+                </div>
             </div>
+            {showAddBookModal && (
+                <AddBookModal onClose={() => setShowAddBookModal(false)} />
+            )}
         </>
     ) : (
         <>Loading...</> // TODO: loading spinner
