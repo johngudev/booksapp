@@ -20,60 +20,58 @@ const HeartIcon = ({ liked }: { liked: boolean }) => (
     </svg>
 );
 
-const CardActions = ({bookId}) => {
+const CardActions = ({ bookId }) => {
     const { books } = useContext(BooksContext);
     const { userLikes, setUserLikes } = useContext(UserLikesContext);
     const liked = userLikes[bookId];
 
     return (
-    <div className="flex flex-row justify-end px-2 pb-2">
-    {liked ? (
-        <button 
-            onClick={() => {
-                unLikeBook(bookId)
-                    .then(() => {
-                        const newUserLikes: any = Object.values(
-                            userLikes
-                        ).reduce(
-                            (acc: any, likedBookData: any) => {
-                                if (likedBookData.id !== bookId) {
-                                    return {
-                                        ...acc,
-                                        [likedBookData.id]:
-                                            likedBookData,
-                                    };
-                                }
-                                return acc;
-                            },
-                            {}
-                        );
-                        setUserLikes({
-                            ...newUserLikes,
-                        });
-                    })
-                    .catch((err) => console.log(err));
-            }}
-        >
-            <HeartIcon liked={liked} />
-        </button>
-    ) : (
-        <button className="invisible group-hover:visible"
-            onClick={() => {
-                likeBook(bookId)
-                    .then(() => {
-                        setUserLikes({
-                            ...userLikes,
-                            [bookId]: books[bookId],
-                        });
-                    })
-                    .catch((err) => console.log(err));
-            }}
-        >
-            <HeartIcon liked={liked} />
-        </button>
-    )}
-</div>)
-}
+        <div className="flex flex-row justify-end px-2 pb-2">
+            {liked ? (
+                <button
+                    onClick={() => {
+                        unLikeBook(bookId)
+                            .then(() => {
+                                const newUserLikes: any = Object.values(
+                                    userLikes
+                                ).reduce((acc: any, likedBookData: any) => {
+                                    if (likedBookData.id !== bookId) {
+                                        return {
+                                            ...acc,
+                                            [likedBookData.id]: likedBookData,
+                                        };
+                                    }
+                                    return acc;
+                                }, {});
+                                setUserLikes({
+                                    ...newUserLikes,
+                                });
+                            })
+                            .catch((err) => console.log(err));
+                    }}
+                >
+                    <HeartIcon liked={liked} />
+                </button>
+            ) : (
+                <button
+                    className="invisible group-hover:visible"
+                    onClick={() => {
+                        likeBook(bookId)
+                            .then(() => {
+                                setUserLikes({
+                                    ...userLikes,
+                                    [bookId]: books[bookId],
+                                });
+                            })
+                            .catch((err) => console.log(err));
+                    }}
+                >
+                    <HeartIcon liked={liked} />
+                </button>
+            )}
+        </div>
+    );
+};
 
 const BookCard = ({
     author,
@@ -86,7 +84,6 @@ const BookCard = ({
     imageUrl: string;
     title: string;
 }) => {
-
     return (
         <div className="group relative flex flex-col md:w-1/6 bg-white rounded-lg shadow-lg overflow-hidden">
             <img
@@ -102,7 +99,7 @@ const BookCard = ({
                     <p className="text-gray-600 mt-2">{author}</p>
                 </div>
             </div>
-            <CardActions bookId={id}/>
+            <CardActions bookId={id} />
         </div>
     );
 };
