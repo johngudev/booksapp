@@ -64,7 +64,7 @@ class MeetingController extends Controller
     public function show(Meeting $meeting)
     {
         // return $meeting;
-        $meeting->load(['book', 'user']);
+        $meeting->load(['book', 'host']);
         return $meeting;
     }
 
