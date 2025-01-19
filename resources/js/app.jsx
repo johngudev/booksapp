@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import BooksPage from './books/components/BooksPage';
+import AllBooksPage from './books/components/AllBooksPage';
 import { UserLikesContext } from './books/context/UserLikesContext';
 import { BooksContext } from './books/context/BooksContext';
 
@@ -11,7 +11,7 @@ const BooksApp = () => {
     return (
         <BooksContext.Provider value={{ books, setBooks }}>
             <UserLikesContext.Provider value={{ userLikes, setUserLikes }}>
-                <BooksPage />
+                <AllBooksPage />
             </UserLikesContext.Provider>
         </BooksContext.Provider>
     );
