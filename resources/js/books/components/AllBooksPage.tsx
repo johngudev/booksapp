@@ -6,7 +6,7 @@ import BookCard from './BookCard';
 import SearchBar from '../../shared/components/SearchBar';
 import AddBookModal from './AddBookModal';
 
-const BooksPage = () => {
+const AllBooksPage = () => {
     const [searchValue, setSearchValue] = useState('');
     const [filteredBooks, setFilteredBooks] = useState(null);
     const [showAddBookModal, setShowAddBookModal] = useState(false);
@@ -40,7 +40,6 @@ const BooksPage = () => {
     }, [books]);
 
     const filterBooks = () => {
-        console.log('filtering books');
         const newBooks = Object.values(books).filter(({ author, title }) =>
             `${author.toLowerCase()} ${title.toLowerCase()}`.includes(
                 searchValue.toLowerCase()
@@ -51,8 +50,8 @@ const BooksPage = () => {
 
     return books && userLikes ? (
         <>
-            <div className="mt-12 mx-auto px-6 lg:px-8">
-                <div className="flex flex-row justify-center gap-4">
+            <div className="mt-12 max-w-screen-xl mx-auto px-6 lg:px-8">
+                <div className="flex flex-row justify-start gap-4 md:mx-4">
                     <SearchBar
                         onChange={({ target: { value } }) =>
                             setSearchValue(value)
@@ -104,4 +103,4 @@ const BooksPage = () => {
     );
 };
 
-export default BooksPage;
+export default AllBooksPage;

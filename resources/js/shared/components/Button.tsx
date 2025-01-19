@@ -1,10 +1,24 @@
-export default function Button({ children, use, ...props }) {
+type ButtonProps = {
+    children: React.ReactNode;
+    extraClassName?: string;
+    use: 'primary' | 'secondary';
+} & any;
+
+export default function Button({
+    children,
+    extraClassName,
+    use,
+    ...props
+}: ButtonProps) {
     const className =
         use === 'secondary'
-            ? 'bg-white text-[#6A8D73] border-2 border-solid border-[#6A8D73]'
-            : 'bg-[#6A8D73] text-white';
+            ? 'bg-white text-green border-2 border-solid border-green hover:bg-stone-100'
+            : 'bg-green text-white border-2 border-solid border-green hover:bg-green-dark';
     return (
-        <button className={`mx-1 py-2 px-4 rounded ${className}`} {...props}>
+        <button
+            className={`mx-1 py-2 px-4 rounded font-medium text-sm ${className} ${extraClassName}`}
+            {...props}
+        >
             {children}
         </button>
     );
