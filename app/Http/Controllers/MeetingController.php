@@ -14,7 +14,9 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        return Meeting::all();
+        // return Meeting::all();
+        return Meeting::with(['book', 'host'])->get();
+
     }
 
     /**
@@ -61,6 +63,8 @@ class MeetingController extends Controller
      */
     public function show(Meeting $meeting)
     {
+        // return $meeting;
+        $meeting->load(['book', 'host']);
         return $meeting;
     }
 
