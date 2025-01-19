@@ -1,4 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
+import { debounce } from 'lodash';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { UserLikesContext } from '../context/UserLikesContext';
 import { BooksContext } from '../context/BooksContext';
 import { fetchAllBooks, fetchAllUserLikes } from '../api';
@@ -8,17 +9,17 @@ import AddBookModal from './AddBookModal';
 
 const AllBooksPage = () => {
     const [searchValue, setSearchValue] = useState('');
-    const [filteredBooks, setFilteredBooks] = useState(null);
     const [showAddBookModal, setShowAddBookModal] = useState(false);
 
     const { userLikes, setUserLikes } = useContext(UserLikesContext);
     const { books, setBooks } = useContext(BooksContext);
 
+    let filteredBooks = books ? Object.values(books) : [];
+
     useEffect(() => {
         fetchAllBooks()
             .then((res) => {
                 setBooks(res);
-                setFilteredBooks(Object.values(res));
             })
             .catch(() => {
                 console.log('error'); // TODO: error handling
@@ -33,35 +34,29 @@ const AllBooksPage = () => {
             });
     }, []);
 
-    useEffect(() => {
-        if (books) {
-            setFilteredBooks(Object.values(books));
-        }
-    }, [books]);
+    const handleSearch = ({ target: { value } }) => setSearchValue(value);
 
-    const filterBooks = () => {
-        const newBooks = Object.values(books).filter(({ author, title }) =>
+    const debouncedSearch = useMemo(() => {
+        return debounce(handleSearch, 300);
+    }, []);
+
+    useEffect(() => debouncedSearch.cancel());
+
+    if (searchValue !== '') {
+        filteredBooks = Object.values(books).filter(({ author, title }) =>
             `${author.toLowerCase()} ${title.toLowerCase()}`.includes(
                 searchValue.toLowerCase()
             )
         );
-        setFilteredBooks(newBooks);
-    };
+    }
 
     return books && userLikes ? (
         <>
             <div className="mt-12 max-w-screen-xl mx-auto px-6 lg:px-8">
                 <div className="flex flex-row justify-start gap-4 md:mx-4">
                     <SearchBar
-                        onChange={({ target: { value } }) =>
-                            setSearchValue(value)
-                        }
-                        onSearch={(evt) => {
-                            evt.preventDefault();
-                            filterBooks();
-                        }}
+                        onChange={debouncedSearch}
                         placeholder="Search for a book"
-                        value={searchValue}
                     />
                     <button
                         className="underline hover:no-underline transition ease-in-out delay-150 duration-300"
