@@ -50,51 +50,56 @@ const AllBooksPage = () => {
         );
     }
 
-    return books && userLikes ? (
-        <>
-            <div className="mt-12 max-w-screen-xl mx-auto px-6 lg:px-8">
-                <div className="flex flex-row justify-start gap-4 md:mx-4">
-                    <SearchBar
-                        onChange={debouncedSearch}
-                        placeholder="Search for a book"
-                    />
-                    <button
-                        className="underline hover:no-underline transition ease-in-out delay-150 duration-300"
-                        onClick={() => setShowAddBookModal(true)}
-                    >
-                        Add books
-                    </button>
-                </div>
-                <div className="mt-12 flex md:flex-row flex-column flex-col gap-3 flex-wrap justify-center">
-                    {filteredBooks.length ? (
-                        filteredBooks.map((book) => {
-                            const {
-                                id,
-                                image_url: imageUrl,
-                                author,
-                                title,
-                            } = book;
-                            return (
-                                <BookCard
-                                    author={author}
-                                    id={id}
-                                    imageUrl={imageUrl}
-                                    key={`${id}:${title}:${author}`}
-                                    title={title}
-                                />
-                            );
-                        })
-                    ) : (
-                        <p>No results.</p>
-                    )}
-                </div>
+    return (
+        <div className="mt-12 max-w-screen-xl mx-auto px-6 lg:px-8">
+            <h1 className="text-3xl text-midnight font-bold mb-5">Books</h1>
+            <div id="filterBar" className="flex flex-row justify-start gap-4">
+                <SearchBar
+                    onChange={debouncedSearch}
+                    placeholder="Search for a book"
+                />
+                <button
+                    className="underline hover:no-underline transition ease-in-out delay-150 duration-300"
+                    onClick={() => setShowAddBookModal(true)}
+                >
+                    Add books
+                </button>
             </div>
-            {showAddBookModal && (
-                <AddBookModal onClose={() => setShowAddBookModal(false)} />
+            {books && userLikes ? (
+                <>
+                    <div className="mt-12 flex md:flex-row flex-column flex-col gap-3 flex-wrap justify-center">
+                        {filteredBooks.length ? (
+                            filteredBooks.map((book) => {
+                                const {
+                                    id,
+                                    image_url: imageUrl,
+                                    author,
+                                    title,
+                                } = book;
+                                return (
+                                    <BookCard
+                                        author={author}
+                                        id={id}
+                                        imageUrl={imageUrl}
+                                        key={`${id}:${title}:${author}`}
+                                        title={title}
+                                    />
+                                );
+                            })
+                        ) : (
+                            <p>No results.</p>
+                        )}
+                    </div>
+                    {showAddBookModal && (
+                        <AddBookModal
+                            onClose={() => setShowAddBookModal(false)}
+                        />
+                    )}
+                </>
+            ) : (
+                <>Loading...</> // TODO: loading spinner
             )}
-        </>
-    ) : (
-        <>Loading...</> // TODO: loading spinner
+        </div>
     );
 };
 

@@ -35,58 +35,59 @@ const AllMeetingsPage = () => {
     useEffect(() => debouncedSearch.cancel());
 
     if (searchValue !== '') {
-        filteredMeetings = Object.values(meetings).filter(({ description }) =>
-            description.toLowerCase().includes(searchValue.toLowerCase())
+        filteredMeetings = Object.values(meetings).filter(
+            ({ book: { title, author }, description }) =>
+                `${author.toLowerCase()} ${title.toLowerCase()} ${description.toLowerCase()}`.includes(
+                    searchValue.toLowerCase()
+                )
         );
     }
-    console.log(meetings);
 
-    return meetings ? (
-        <>
-            <div className="mt-12 max-w-screen-xl mx-auto px-6 lg:px-8">
-                <div className="flex flex-row justify-start gap-4 md:mx-4">
-                    <SearchBar
-                        onChange={debouncedSearch}
-                        placeholder="Search for a book"
-                    />
-                    <button
-                        className="underline hover:no-underline transition ease-in-out delay-150 duration-300"
-                        // onClick={() => setShowAddMeetingModal(true)}
-                    >
-                        Add meetings
-                    </button>
-                </div>
-                <div className="mt-12 flex md:flex-row flex-column flex-col gap-3 flex-wrap justify-center">
-                    {filteredMeetings.length ? (
-                        filteredMeetings.map((meeting) => {
-                            const {
-                                book_id: bookId,
-                                date_time: meetingAt,
-                                description,
-                                id: meetingId,
-                                user_id: userId,
-                                zoom_link: zoomLink,
-                            } = meeting;
-                            return (
-                                <MeetingCard
-                                    bookId={bookId}
-                                    description={description}
-                                    key={meetingId}
-                                    meetingAt={meetingAt}
-                                    meetingId={meetingId}
-                                    userId={userId}
-                                    zoomLink={zoomLink}
-                                />
-                            );
-                        })
-                    ) : (
-                        <p>No results.</p>
-                    )}
-                </div>
+    return (
+        <div className="mt-12 max-w-screen-xl mx-auto px-6 lg:px-8">
+            <h1 className="text-3xl text-midnight font-bold mb-5">Meetings</h1>
+            <div id="filterBar" className="flex flex-row justify-start gap-4">
+                <SearchBar
+                    onChange={debouncedSearch}
+                    placeholder="Search for a book"
+                />
             </div>
-        </>
-    ) : (
-        <>Loading...</> // TODO: loading spinner
+            {meetings ? (
+                <>
+                    <div className="mt-12 flex flex-column flex-col gap-3 flex-wrap">
+                        {filteredMeetings.length ? (
+                            filteredMeetings.map((meeting) => {
+                                const {
+                                    attendees,
+                                    book,
+                                    date_time: meetingAt,
+                                    description,
+                                    host,
+                                    id: meetingId,
+                                    zoom_link: zoomLink,
+                                } = meeting;
+                                return (
+                                    <MeetingCard
+                                        attendees={attendees}
+                                        book={book}
+                                        description={description}
+                                        host={host}
+                                        key={meetingId}
+                                        meetingAt={meetingAt}
+                                        meetingId={meetingId}
+                                        zoomLink={zoomLink}
+                                    />
+                                );
+                            })
+                        ) : (
+                            <p>No results.</p>
+                        )}
+                    </div>
+                </>
+            ) : (
+                <>Loading...</> // TODO: loading spinner
+            )}
+        </div>
     );
 };
 
