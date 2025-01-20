@@ -44,3 +44,7 @@ export type UserBookLike = Book & {
         user_id: number;
     };
 };
+
+export type UserBookLikesMap = {
+    [userBookLikeId: number]: UserBookLike;
+};
