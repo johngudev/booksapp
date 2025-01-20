@@ -1,6 +1,8 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Button from '../../shared/components/Button';
-// import { addMeeting } from '../api';
+import UserSessionContext from '../../shared/UserSessionContext';
+import BooksContext from '../../books/BooksContext';
+import { fetchAllBooks } from '../../books/api';
 import MeetingsContext from '../MeetingsContext';
 import { createMeeting } from '../api';
 
@@ -12,12 +14,25 @@ export default function AddMeetingModal({ onClose }: AddMeetingModalProps) {
     // prevent scrolling background content
     document.body.classList.add('overflow-hidden');
     const { meetings, setMeetings } = useContext(MeetingsContext);
+    const { books, setBooks } = useContext(BooksContext);
 
     const [bookId, setBookId] = useState(null);
     const [date, setDate] = useState(null);
     const [description, setDescription] = useState('');
     const [time, setTime] = useState(null);
     const [zoomLink, setZoomLink] = useState('');
+
+    useEffect(() => {
+        if (!books) {
+            fetchAllBooks()
+                .then((res) => {
+                    setBooks(res);
+                })
+                .catch(() => {
+                    console.log('error'); // TODO: error handling
+                });
+        }
+    });
 
     const closeModal = () => {
         // allow scrolling background content again
@@ -27,19 +42,23 @@ export default function AddMeetingModal({ onClose }: AddMeetingModalProps) {
 
     const onSubmit = (evt: React.FormEvent) => {
         evt.preventDefault();
-        console.log({ bookId, date, description, time, zoomLink });
-        // createMeeting({
-        //     bookId,
-        //     description,
-        //     meetingAt: 'date' + 'time',
-        //     zoomLink,
-        // })
-        //     .then((newMeeting) => {
-        //         setMeetings({ ...meetings, [newMeeting.id]: newMeeting });
-        //     })
-        //     .finally(() => {
-        //         closeModal();
-        //     });
+        createMeeting({
+            bookId,
+            description,
+            meetingAt: `${date} ${time}`,
+            zoomLink,
+        })
+            .then((newMeeting) => {
+                setMeetings({
+                    ...meetings,
+                    [newMeeting.id]: {
+                        ...newMeeting,
+                    },
+                });
+            })
+            .finally(() => {
+                closeModal();
+            });
     };
 
     return (
@@ -69,117 +88,133 @@ export default function AddMeetingModal({ onClose }: AddMeetingModalProps) {
                         </svg>
                     </button>
                 </div>
-                <form className="space-y-6" onSubmit={onSubmit}>
-                    {/* Modal content */}
-                    <div id="body" className="mb-4">
-                        <div className="my-3">
-                            <label
-                                htmlFor="book"
-                                className="block text-sm font-medium text-gray-700"
-                            >
-                                Book
-                            </label>
-                            <input
-                                type="text"
-                                id="book"
-                                name="book"
-                                className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                onChange={({ currentTarget: { value } }) =>
-                                    setBookId(value)
-                                }
-                                value={bookId}
-                                required
-                            />
+                {books && (
+                    <form className="space-y-6" onSubmit={onSubmit}>
+                        {/* Modal content */}
+                        <div id="body" className="mb-4">
+                            <div className="my-3">
+                                <label
+                                    htmlFor="book"
+                                    className="block text-sm font-medium text-gray-700"
+                                >
+                                    Book
+                                </label>
+                                <select
+                                    className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    id="book"
+                                    name="book"
+                                    onChange={({
+                                        currentTarget: { value },
+                                    }) => {
+                                        setBookId(value);
+                                    }}
+                                >
+                                    {Object.values(books).map((book) => (
+                                        <option key={book.id} value={book.id}>
+                                            {book.title}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="my-3">
+                                <label
+                                    htmlFor="author"
+                                    className="block text-sm font-medium text-gray-700"
+                                >
+                                    Description
+                                </label>
+                                <textarea
+                                    id="author"
+                                    name="author"
+                                    className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    onChange={({ currentTarget: { value } }) =>
+                                        setDescription(value)
+                                    }
+                                    placeholder="Enter description"
+                                    value={description}
+                                    required
+                                />
+                            </div>
+                            <div className="my-3">
+                                <label
+                                    htmlFor="date"
+                                    className="block text-sm font-medium text-gray-700"
+                                >
+                                    Date
+                                </label>
+                                <input
+                                    className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    id="date"
+                                    type="date"
+                                    name="date"
+                                    onChange={({ currentTarget: { value } }) =>
+                                        setDate(value)
+                                    }
+                                    required
+                                />
+                            </div>
+                            <div className="my-3">
+                                <label
+                                    htmlFor="time"
+                                    className="block text-sm font-medium text-gray-700"
+                                >
+                                    Time
+                                </label>
+                                <input
+                                    className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    id="time"
+                                    type="time"
+                                    name="time"
+                                    onChange={({ currentTarget: { value } }) =>
+                                        setTime(value)
+                                    }
+                                    required
+                                />
+                            </div>
+                            <div className="my-3">
+                                <label
+                                    htmlFor="zoomLink"
+                                    className="block text-sm font-medium text-gray-700"
+                                >
+                                    Zoom Link
+                                </label>
+                                <input
+                                    className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    id="zoomLink"
+                                    type="url"
+                                    name="zoomLink"
+                                    onChange={({ currentTarget: { value } }) =>
+                                        setZoomLink(value)
+                                    }
+                                    required
+                                />
+                            </div>
                         </div>
-                        <div className="my-3">
-                            <label
-                                htmlFor="author"
-                                className="block text-sm font-medium text-gray-700"
-                            >
-                                Description
-                            </label>
-                            <input
-                                type="text"
-                                id="author"
-                                name="author"
-                                className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                onChange={({ currentTarget: { value } }) =>
-                                    setDescription(value)
+                        {/* Footer */}
+                        <div className="h-12" id="footer">
+                            <Button
+                                disabled={
+                                    !bookId ||
+                                    !description ||
+                                    !date ||
+                                    !time ||
+                                    !zoomLink
                                 }
-                                placeholder="Enter description"
-                                value={description}
-                                required
-                            />
-                        </div>
-                        <div className="my-3">
-                            <label
-                                htmlFor="date"
-                                className="block text-sm font-medium text-gray-700"
+                                type="submit"
+                                use="primary"
                             >
-                                Date
-                            </label>
-                            <input
-                                className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                id="date"
-                                type="date"
-                                name="date"
-                                onChange={({ currentTarget: { value } }) =>
-                                    setDate(value)
-                                }
-                                required
-                            />
-                        </div>
-                        <div className="my-3">
-                            <label
-                                htmlFor="time"
-                                className="block text-sm font-medium text-gray-700"
+                                Create
+                            </Button>
+                            <Button
+                                onClick={closeModal}
+                                type="button"
+                                use="secondary"
                             >
-                                Time
-                            </label>
-                            <input
-                                className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                id="time"
-                                type="time"
-                                name="time"
-                                onChange={({ currentTarget: { value } }) =>
-                                    setTime(value)
-                                }
-                                required
-                            />
+                                Cancel
+                            </Button>
                         </div>
-                        <div className="my-3">
-                            <label
-                                htmlFor="zoomLink"
-                                className="block text-sm font-medium text-gray-700"
-                            >
-                                Zoom Link
-                            </label>
-                            <input
-                                className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                id="zoomLink"
-                                type="url"
-                                name="zoomLink"
-                                onChange={({ currentTarget: { value } }) =>
-                                    setZoomLink(value)
-                                }
-                                required
-                            />
-                        </div>
-                    </div>
-                    {/* Footer */}
-                    <div className="h-12" id="footer">
-                        <Button
-                            disabled={!bookId || !description || !date || !time}
-                            type="submit"
-                            use="primary"
-                        >
-                            Create
-                        </Button>
-                        <Button use="secondary" onClick={closeModal}>
-                            Cancel
-                        </Button>
-                    </div>
-                </form>
+                    </form>
+                )}
             </div>
         </>
     );
