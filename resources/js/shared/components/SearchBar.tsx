@@ -1,9 +1,9 @@
 import { SearchIcon } from './Icons';
 
-interface SearchBarProps {
+type SearchBarProps = {
     onChange: ({ target: { value } }) => void;
     placeholder: string;
-}
+};
 
 export default function SearchBar({ onChange, placeholder }: SearchBarProps) {
     return (

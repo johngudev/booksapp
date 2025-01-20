@@ -1,9 +1,9 @@
 import { createContext } from 'react';
-import { BookMap } from '../types';
+import { BooksMap } from '../../shared/types';
 
 export const BooksContext = createContext<{
-    books: BookMap;
-    setBooks: (newBooks: BookMap) => void;
+    books: BooksMap;
+    setBooks: (newBooks: BooksMap) => void;
 }>({
     books: null,
     setBooks: (newBooks) => {},

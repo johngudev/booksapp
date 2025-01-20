@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { MeetingsMap } from '../types';
+import { MeetingsMap } from '../../shared/types';
 
 export const MeetingsContext = createContext<{
     meetings: MeetingsMap;

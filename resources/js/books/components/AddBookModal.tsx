@@ -3,14 +3,15 @@ import Button from '../../shared/components/Button';
 import { addBook } from '../api';
 import { BooksContext } from '../context/BooksContext';
 
-interface FormElements extends HTMLFormControlsCollection {
+type FormElements = HTMLFormControlsCollection & {
     title: HTMLInputElement;
     author: HTMLInputElement;
     imageUrl: HTMLInputElement;
-}
-interface AddBookFormElement extends HTMLFormElement {
+};
+
+type AddBookFormElement = HTMLFormElement & {
     readonly elements: FormElements;
-}
+};
 
 export default function AddBookModal({ onClose }) {
     // prevent scrolling background content
