@@ -1,15 +1,11 @@
-import Button from './Button';
 import { SearchIcon } from './Icons';
 
-export default function SearchBar({
-    onChange,
-    placeholder,
-}: // value,
-{
+type SearchBarProps = {
     onChange: ({ target: { value } }) => void;
     placeholder: string;
-    // value: string;
-}) {
+};
+
+export default function SearchBar({ onChange, placeholder }: SearchBarProps) {
     return (
         <div className="md:w-[300px] w-full">
             <label
@@ -26,7 +22,6 @@ export default function SearchBar({
                     className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green focus:border-green"
                     onChange={onChange}
                     placeholder={placeholder}
-                    // value={value}
                 />
             </div>
         </div>

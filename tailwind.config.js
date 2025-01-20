@@ -27,11 +27,9 @@ module.exports = {
             },
             midnight: '#223843',
             sand: '#faedcd',
-            'light-brown': '#d4a373',
             'pale-yellow': '#fefae0',
             slate: colors.slate,
-            // 'bubble-gum': '#ff77e9',
-            // bermuda: '#78dcca',
+            coffee: { light: '#D4A373', dark: '#7D6840' },
         },
     },
 
