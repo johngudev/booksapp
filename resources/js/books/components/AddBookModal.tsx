@@ -1,17 +1,7 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Button from '../../shared/components/Button';
 import { addBook } from '../api';
 import BooksContext from '../BooksContext';
-
-type FormElements = HTMLFormControlsCollection & {
-    title: HTMLInputElement;
-    author: HTMLInputElement;
-    imageUrl: HTMLInputElement;
-};
-
-type AddBookFormElement = HTMLFormElement & {
-    readonly elements: FormElements;
-};
 
 type AddBookModalProps = {
     defaultTitle: string;
@@ -26,19 +16,23 @@ export default function AddBookModal({
     document.body.classList.add('overflow-hidden');
     const { books, setBooks } = useContext(BooksContext);
 
+    const [title, setTitle] = useState(defaultTitle);
+    const [author, setAuthor] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
+
     const closeModal = () => {
         // allow scrolling background content again
         document.body.classList.remove('overflow-hidden');
         onClose();
     };
 
-    const onSubmit = (evt: React.FormEvent<AddBookFormElement>) => {
+    const onSubmit = (evt: React.FormEvent) => {
         evt.preventDefault();
-        const { title, author, imageUrl } = evt.currentTarget.elements;
+        // const { title, author, imageUrl } = evt.currentTarget.elements;
         addBook({
-            author: author.value,
-            title: title.value,
-            image_url: imageUrl ? imageUrl.value : null,
+            author,
+            title,
+            image_url: imageUrl ? imageUrl : null,
         })
             .then((newBook) => {
                 setBooks({ ...books, [newBook.id]: newBook });
@@ -90,8 +84,11 @@ export default function AddBookModal({
                                 id="title"
                                 name="title"
                                 className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                defaultValue={defaultTitle}
+                                onChange={({ currentTarget: { value } }) =>
+                                    setTitle(value)
+                                }
                                 placeholder="Enter the book title"
+                                value={title}
                                 required
                             />
                         </div>
@@ -107,7 +104,11 @@ export default function AddBookModal({
                                 id="author"
                                 name="author"
                                 className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                onChange={({ currentTarget: { value } }) =>
+                                    setAuthor(value)
+                                }
                                 placeholder="Enter the author's name"
+                                value={author}
                                 required
                             />
                         </div>
@@ -123,16 +124,28 @@ export default function AddBookModal({
                                 id="image_url"
                                 name="image_url"
                                 className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                onChange={({ currentTarget: { value } }) =>
+                                    setImageUrl(value)
+                                }
                                 placeholder="Enter the image URL"
+                                value={imageUrl}
                             />
                         </div>
                     </div>
                     {/* Footer */}
                     <div className="h-12" id="footer">
-                        <Button type="submit" use="primary">
+                        <Button
+                            disabled={!title || !author}
+                            type="submit"
+                            use="primary"
+                        >
                             Add
                         </Button>
-                        <Button use="secondary" onClick={closeModal}>
+                        <Button
+                            type="button"
+                            use="secondary"
+                            onClick={closeModal}
+                        >
                             Cancel
                         </Button>
                     </div>
