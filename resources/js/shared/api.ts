@@ -1,5 +1,5 @@
-const appRoot = 'booksapp.test';
-// const appRoot = 'localhost:8000';
+// const appRoot = 'booksapp.test';
+const appRoot = 'localhost:8000';
 
 export async function fetchUserSession() {
     const res = await fetch(`http://${appRoot}/api/session/user`);
