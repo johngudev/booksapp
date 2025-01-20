@@ -1,8 +1,8 @@
 import { debounce } from 'lodash';
 import { useContext, useEffect, useMemo, useState } from 'react';
-import { UserLikesContext } from '../context/UserLikesContext';
-import { BooksContext } from '../context/BooksContext';
-import { fetchAllBooks, fetchAllUserLikes } from '../api';
+import { UserBookLikesContext } from '../UserBookLikesContext';
+import { BooksContext } from '../BooksContext';
+import { fetchAllBooks, fetchAllUserBookLikes } from '../api';
 import SearchBar from '../../shared/components/SearchBar';
 import FilterBar from '../../shared/components/FilterBar';
 import Button from '../../shared/components/Button';
@@ -14,7 +14,8 @@ const AllBooksPage = () => {
     const [showAddBookModal, setShowAddBookModal] = useState(false);
     const [addBookTitle, setAddBookTitle] = useState('');
 
-    const { userLikes, setUserLikes } = useContext(UserLikesContext);
+    const { userBookLikes, setUserBookLikes } =
+        useContext(UserBookLikesContext);
     const { books, setBooks } = useContext(BooksContext);
 
     let filteredBooks = books ? Object.values(books) : [];
@@ -28,9 +29,9 @@ const AllBooksPage = () => {
                 console.log('error'); // TODO: error handling
             });
 
-        fetchAllUserLikes()
+        fetchAllUserBookLikes()
             .then((res) => {
-                setUserLikes(res);
+                setUserBookLikes(res);
             })
             .catch(() => {
                 console.log('error'); // TODO: error handling
@@ -73,7 +74,7 @@ const AllBooksPage = () => {
                     />
                 }
             />
-            {books && userLikes ? (
+            {books && userBookLikes ? (
                 <>
                     <div className="mt-12 flex md:flex-row flex-column flex-col gap-3 flex-wrap justify-center">
                         {filteredBooks.length ? (

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import Button from '../../shared/components/Button';
 import { addBook } from '../api';
-import { BooksContext } from '../context/BooksContext';
+import { BooksContext } from '../BooksContext';
 
 type FormElements = HTMLFormControlsCollection & {
     title: HTMLInputElement;

@@ -3,22 +3,24 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import AllBooksPage from './books/components/AllBooksPage';
 import AllMeetingsPage from './meetings/components/AllMeetingsPage';
-import { UserLikesContext } from './books/context/UserLikesContext';
+import { UserBookLikesContext } from './books/UserBookLikesContext';
 import { BooksContext } from './books/context/BooksContext';
-import { MeetingsContext } from './meetings/context/MeetingsContext';
+import { MeetingsContext } from './meetings/MeetingsContext';
 import UserSessionContext from './shared/UserSessionContext';
 
 const BooksApp = () => {
-    const [userLikes, setUserLikes] = useState(null);
+    const [userBookLikes, setUserBookLikes] = useState(null);
     const [books, setBooks] = useState(null);
     const [userSession, setUserSession] = useState(null);
 
     return (
         <UserSessionContext.Provider value={{ userSession, setUserSession }}>
             <BooksContext.Provider value={{ books, setBooks }}>
-                <UserLikesContext.Provider value={{ userLikes, setUserLikes }}>
+                <UserBookLikesContext.Provider
+                    value={{ userBookLikes, setUserBookLikes }}
+                >
                     <AllBooksPage />
-                </UserLikesContext.Provider>
+                </UserBookLikesContext.Provider>
             </BooksContext.Provider>
         </UserSessionContext.Provider>
     );

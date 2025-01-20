@@ -2,8 +2,8 @@ import { useContext } from 'react';
 import Button from '../../shared/components/Button';
 import UserSessionContext from '../../shared/UserSessionContext';
 import { pluralize } from '../../shared/utils';
-import { MeetingsContext } from '../context/MeetingsContext';
 import { Book, User } from '../../shared/types';
+import MeetingsContext from '../MeetingsContext';
 import { joinMeeting, leaveMeeting } from '../api';
 
 type MeetingCardProps = {

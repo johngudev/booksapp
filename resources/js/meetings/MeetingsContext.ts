@@ -1,7 +1,7 @@
 import { createContext } from 'react';
-import { MeetingsMap } from '../../shared/types';
+import { MeetingsMap } from '../shared/types';
 
-export const MeetingsContext = createContext<{
+export default createContext<{
     meetings: MeetingsMap;
     setMeetings: (newMeeting: MeetingsMap) => void;
 }>({

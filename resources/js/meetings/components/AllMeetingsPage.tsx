@@ -1,6 +1,6 @@
 import { debounce } from 'lodash';
 import { useContext, useEffect, useMemo, useState } from 'react';
-import { MeetingsContext } from '../context/MeetingsContext';
+import MeetingsContext from '../MeetingsContext';
 import UserSessionContext from '../../shared/UserSessionContext';
 import SearchBar from '../../shared/components/SearchBar';
 import FilterBar from '../../shared/components/FilterBar';

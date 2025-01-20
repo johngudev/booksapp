@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { BooksMap } from '../../shared/types';
+import { BooksMap } from '../shared/types';
 
 export const BooksContext = createContext<{
     books: BooksMap;

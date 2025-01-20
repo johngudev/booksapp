@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 import { likeBook, unLikeBook } from '../api';
-import { UserLikesContext } from '../context/UserLikesContext';
-import { BooksContext } from '../context/BooksContext';
+import { UserBookLikesContext } from '../UserBookLikesContext';
+import { BooksContext } from '../BooksContext';
 import { HeartIcon } from '../../shared/components/Icons';
 
 const CardActions = ({ bookId }) => {
     const { books } = useContext(BooksContext);
-    const { userLikes, setUserLikes } = useContext(UserLikesContext);
-    const liked = userLikes[bookId];
+    const { userBookLikes, setUserBookLikes } =
+        useContext(UserBookLikesContext);
+    const liked = userBookLikes[bookId];
 
     return (
         <div className="flex flex-row justify-end px-2 pb-2">
@@ -16,8 +17,8 @@ const CardActions = ({ bookId }) => {
                     onClick={() => {
                         unLikeBook(bookId)
                             .then(() => {
-                                const newUserLikes: any = Object.values(
-                                    userLikes
+                                const newUserBookLikes: any = Object.values(
+                                    userBookLikes
                                 ).reduce((acc: any, likedBookData: any) => {
                                     if (likedBookData.id !== bookId) {
                                         return {
@@ -27,8 +28,8 @@ const CardActions = ({ bookId }) => {
                                     }
                                     return acc;
                                 }, {});
-                                setUserLikes({
-                                    ...newUserLikes,
+                                setUserBookLikes({
+                                    ...newUserBookLikes,
                                 });
                             })
                             .catch((err) => console.log(err));
@@ -42,8 +43,8 @@ const CardActions = ({ bookId }) => {
                     onClick={() => {
                         likeBook(bookId)
                             .then(() => {
-                                setUserLikes({
-                                    ...userLikes,
+                                setUserBookLikes({
+                                    ...userBookLikes,
                                     [bookId]: books[bookId],
                                 });
                             })
