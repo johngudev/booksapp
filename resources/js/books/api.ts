@@ -19,7 +19,7 @@ export async function fetchAllBooks(): Promise<BooksMap> {
     }, {});
 }
 
-export async function fetchAllUserLikes() {
+export async function fetchAllUserBookLikes() {
     const res = await fetch(`http://${appRoot}/api/session/books`);
     if (!res.ok) {
         throw new Error(`Response status: ${res.status}`);
