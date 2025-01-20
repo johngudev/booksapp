@@ -112,7 +112,7 @@ class MeetingController extends Controller
     {
         $user = request()->user();
 
-        $user->meetings()->syncWithoutDetaching([$meeting->id]);
+        $user->attendingMeetings()->syncWithoutDetaching([$meeting->id]);
 
         return response()->json(['message' => 'Meeting attached to user successfully']);
 
