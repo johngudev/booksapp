@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\MeetingController;
+use App\Http\Controllers\SessionController;
 
 
 /*
@@ -45,6 +46,8 @@ Route::get('/meetings', [MeetingController::class, 'list'])->name('meetings.list
 
 Route::get('/meetings/create', [MeetingController::class, 'create'])->name('meetings.create')
     ->middleware(['auth', 'verified']);
+
+Route::middleware('auth')->get('/api/session/user', [SessionController::class, 'show']);
 
 Route::middleware('auth')->get('/api/books/like/{book}',[BookController::class, 'linkedUsers']);
 
