@@ -2,8 +2,8 @@ const csrfToken = document
     .querySelector('meta[name="csrf-token"]')
     .getAttribute('content');
 
-// const appRoot = 'booksapp.test';
-const appRoot = 'localhost:8000';
+const appRoot = 'booksapp.test';
+// const appRoot = 'localhost:8000';
 
 export async function fetchAllMeetings() {
     const res = await fetch(`http://${appRoot}/api/meetings`);
