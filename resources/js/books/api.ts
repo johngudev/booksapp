@@ -8,7 +8,7 @@ const appRoot = 'booksapp.test';
 // const appRoot = 'localhost:8000';
 
 export async function fetchAllBooks(): Promise<BooksMap> {
-    const res = await fetch(`http://${appRoot}/api/books`);
+    const res = await fetch(`https://${appRoot}/api/books`);
     if (!res.ok) {
         throw new Error(`Response status: ${res.status}`);
     }
@@ -20,7 +20,7 @@ export async function fetchAllBooks(): Promise<BooksMap> {
 }
 
 export async function fetchAllUserLikes() {
-    const res = await fetch(`http://${appRoot}/api/session/books`);
+    const res = await fetch(`https://${appRoot}/api/session/books`);
     if (!res.ok) {
         throw new Error(`Response status: ${res.status}`);
     }
@@ -32,7 +32,7 @@ export async function fetchAllUserLikes() {
 }
 
 export async function likeBook(bookId: number) {
-    const res = await fetch(`http://${appRoot}/api/session/books/${bookId}`, {
+    const res = await fetch(`https://${appRoot}/api/session/books/${bookId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export async function likeBook(bookId: number) {
 }
 
 export async function unLikeBook(bookId: number) {
-    const res = await fetch(`http://${appRoot}/api/session/books/${bookId}`, {
+    const res = await fetch(`https://${appRoot}/api/session/books/${bookId}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export async function addBook({
     title: string;
     image_url?: string;
 }) {
-    const res = await fetch(`http://${appRoot}/api/books`, {
+    const res = await fetch(`https://${appRoot}/api/books`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
