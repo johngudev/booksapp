@@ -84,7 +84,7 @@ export default function MeetingCard({
                 <div className="font-bold">Discussion: {title}</div>
                 <div>{description}</div>
                 <div className="">Hosted by: {host.name}</div>
-                <div>{pluralize(attendees.length, 'attendee')}</div>
+                <div>{pluralize(allAttendees.length, 'attendee')}</div>
             </div>
             <div className="absolute bottom-6 right-6">
                 {isAttending ? (
