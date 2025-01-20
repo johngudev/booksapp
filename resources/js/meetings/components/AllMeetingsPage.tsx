@@ -1,4 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
+import { debounce } from 'lodash';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { MeetingsContext } from '../context/MeetingsContext';
 import { fetchAllMeetings } from '../api';
 import MeetingCard from './MeetingCard';
@@ -6,16 +7,14 @@ import SearchBar from '../../shared/components/SearchBar';
 
 const AllMeetingsPage = () => {
     const [searchValue, setSearchValue] = useState('');
-    const [filteredMeetings, setFilteredMeetings] = useState(null);
-    // const [showAddMeetingModal, setShowAddMeetingModal] = useState(false);
-
     const { meetings, setMeetings } = useContext(MeetingsContext);
+
+    let filteredMeetings = meetings ? Object.values(meetings) : [];
 
     useEffect(() => {
         fetchAllMeetings()
             .then((res) => {
                 setMeetings(res);
-                setFilteredMeetings(Object.values(res));
             })
             .catch(() => {
                 console.log('error'); // TODO: error handling
@@ -24,34 +23,31 @@ const AllMeetingsPage = () => {
 
     useEffect(() => {
         if (meetings) {
-            setFilteredMeetings(Object.values(meetings));
         }
     }, [meetings]);
 
-    const filterMeetings = () => {
-        const newMeetings = Object.values(meetings).filter(
-            ({ author, title }) =>
-                `${author.toLowerCase()} ${title.toLowerCase()}`.includes(
-                    searchValue.toLowerCase()
-                )
+    const handleSearch = ({ target: { value } }) => setSearchValue(value);
+
+    const debouncedSearch = useMemo(() => {
+        return debounce(handleSearch, 300);
+    }, []);
+
+    useEffect(() => debouncedSearch.cancel());
+
+    if (searchValue !== '') {
+        filteredMeetings = Object.values(meetings).filter(({ description }) =>
+            description.toLowerCase().includes(searchValue.toLowerCase())
         );
-        setFilteredMeetings(newMeetings);
-    };
+    }
+    console.log(meetings);
 
     return meetings ? (
         <>
-            <div className="mt-12 mx-auto px-6 lg:px-8">
-                <div className="flex flex-row justify-center gap-4">
+            <div className="mt-12 max-w-screen-xl mx-auto px-6 lg:px-8">
+                <div className="flex flex-row justify-start gap-4 md:mx-4">
                     <SearchBar
-                        onChange={({ target: { value } }) =>
-                            setSearchValue(value)
-                        }
-                        onSearch={(evt) => {
-                            evt.preventDefault();
-                            filterMeetings();
-                        }}
-                        placeholder="Search for a meeting"
-                        value={searchValue}
+                        onChange={debouncedSearch}
+                        placeholder="Search for a book"
                     />
                     <button
                         className="underline hover:no-underline transition ease-in-out delay-150 duration-300"
