@@ -3,16 +3,6 @@ import Button from '../../shared/components/Button';
 import { addBook } from '../api';
 import BooksContext from '../BooksContext';
 
-type FormElements = HTMLFormControlsCollection & {
-    title: HTMLInputElement;
-    author: HTMLInputElement;
-    imageUrl: HTMLInputElement;
-};
-
-type AddBookFormElement = HTMLFormElement & {
-    readonly elements: FormElements;
-};
-
 type AddBookModalProps = {
     defaultTitle: string;
     onClose: () => void;
@@ -36,7 +26,7 @@ export default function AddBookModal({
         onClose();
     };
 
-    const onSubmit = (evt: React.FormEvent<AddBookFormElement>) => {
+    const onSubmit = (evt: React.FormEvent) => {
         evt.preventDefault();
         // const { title, author, imageUrl } = evt.currentTarget.elements;
         addBook({
@@ -151,7 +141,11 @@ export default function AddBookModal({
                         >
                             Add
                         </Button>
-                        <Button use="secondary" onClick={closeModal}>
+                        <Button
+                            type="button"
+                            use="secondary"
+                            onClick={closeModal}
+                        >
                             Cancel
                         </Button>
                     </div>
