@@ -122,7 +122,7 @@ class MeetingController extends Controller
     {
         $user = request()->user();
 
-        $user->meetings()->detach($meeting->id);
+        $user->attendingMeetings()->detach($meeting->id);
 
         return response()->json(['message' => 'Meeting detached from user successfully']);
 
