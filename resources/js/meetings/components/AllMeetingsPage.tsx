@@ -2,10 +2,11 @@ import { debounce } from 'lodash';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { MeetingsContext } from '../context/MeetingsContext';
 import UserSessionContext from '../../shared/UserSessionContext';
+import SearchBar from '../../shared/components/SearchBar';
+import FilterBar from '../../shared/components/FilterBar';
+import { fetchUserSession } from '../../shared/api';
 import { fetchAllMeetings } from '../api';
 import MeetingCard from './MeetingCard';
-import SearchBar from '../../shared/components/SearchBar';
-import { fetchUserSession } from '../../shared/api';
 
 const AllMeetingsPage = () => {
     const [searchValue, setSearchValue] = useState('');
@@ -55,12 +56,14 @@ const AllMeetingsPage = () => {
     return (
         <div className="mt-12 max-w-screen-xl mx-auto px-6 lg:px-8">
             <h1 className="text-3xl text-midnight font-bold mb-5">Meetings</h1>
-            <div id="filterBar" className="flex flex-row justify-start gap-4">
-                <SearchBar
-                    onChange={debouncedSearch}
-                    placeholder="Search for a book"
-                />
-            </div>
+            <FilterBar
+                start={
+                    <SearchBar
+                        onChange={debouncedSearch}
+                        placeholder="Search for a book"
+                    />
+                }
+            />
             {meetings ? (
                 <>
                     <div className="mt-12 flex flex-column flex-col gap-3 flex-wrap">

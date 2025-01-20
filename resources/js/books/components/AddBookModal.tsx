@@ -13,7 +13,15 @@ type AddBookFormElement = HTMLFormElement & {
     readonly elements: FormElements;
 };
 
-export default function AddBookModal({ onClose }) {
+type AddBookModalProps = {
+    defaultTitle: string;
+    onClose: () => void;
+};
+
+export default function AddBookModal({
+    defaultTitle,
+    onClose,
+}: AddBookModalProps) {
     // prevent scrolling background content
     document.body.classList.add('overflow-hidden');
     const { books, setBooks } = useContext(BooksContext);
@@ -82,6 +90,7 @@ export default function AddBookModal({ onClose }) {
                                 id="title"
                                 name="title"
                                 className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                defaultValue={defaultTitle}
                                 placeholder="Enter the book title"
                                 required
                             />

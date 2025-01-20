@@ -3,13 +3,16 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 import { UserLikesContext } from '../context/UserLikesContext';
 import { BooksContext } from '../context/BooksContext';
 import { fetchAllBooks, fetchAllUserLikes } from '../api';
-import BookCard from './BookCard';
 import SearchBar from '../../shared/components/SearchBar';
+import FilterBar from '../../shared/components/FilterBar';
+import Button from '../../shared/components/Button';
 import AddBookModal from './AddBookModal';
+import BookCard from './BookCard';
 
 const AllBooksPage = () => {
     const [searchValue, setSearchValue] = useState('');
     const [showAddBookModal, setShowAddBookModal] = useState(false);
+    const [addBookTitle, setAddBookTitle] = useState('');
 
     const { userLikes, setUserLikes } = useContext(UserLikesContext);
     const { books, setBooks } = useContext(BooksContext);
@@ -52,19 +55,24 @@ const AllBooksPage = () => {
 
     return (
         <div className="mt-12 max-w-screen-xl mx-auto px-6 lg:px-8">
-            <h1 className="text-3xl text-midnight font-bold mb-5">Books</h1>
-            <div id="filterBar" className="flex flex-row justify-start gap-4">
-                <SearchBar
-                    onChange={debouncedSearch}
-                    placeholder="Search for a book"
-                />
-                <button
-                    className="underline hover:no-underline transition ease-in-out delay-150 duration-300"
+            <div id="header" className="flex flex-row justify-between">
+                <h1 className="text-3xl text-midnight font-bold mb-5">Books</h1>
+                <Button
+                    // className="underline hover:no-underline transition ease-in-out delay-150 duration-300"
+                    use="secondary"
                     onClick={() => setShowAddBookModal(true)}
                 >
-                    Add books
-                </button>
+                    Add book
+                </Button>
             </div>
+            <FilterBar
+                start={
+                    <SearchBar
+                        onChange={debouncedSearch}
+                        placeholder="Search for a book"
+                    />
+                }
+            />
             {books && userLikes ? (
                 <>
                     <div className="mt-12 flex md:flex-row flex-column flex-col gap-3 flex-wrap justify-center">
@@ -87,12 +95,27 @@ const AllBooksPage = () => {
                                 );
                             })
                         ) : (
-                            <p>No results.</p>
+                            <div className="flex-col text-center">
+                                <p>No results.</p>
+                                <button
+                                    className="underline hover:no-underline transition ease-in-out delay-150 duration-300 text-green"
+                                    onClick={() => {
+                                        setShowAddBookModal(true);
+                                        setAddBookTitle(searchValue);
+                                    }}
+                                >
+                                    Add “{searchValue}” book
+                                </button>
+                            </div>
                         )}
                     </div>
                     {showAddBookModal && (
                         <AddBookModal
-                            onClose={() => setShowAddBookModal(false)}
+                            defaultTitle={addBookTitle}
+                            onClose={() => {
+                                setShowAddBookModal(false);
+                                setAddBookTitle('');
+                            }}
                         />
                     )}
                 </>
