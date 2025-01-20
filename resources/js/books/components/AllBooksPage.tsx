@@ -1,7 +1,7 @@
 import { debounce } from 'lodash';
 import { useContext, useEffect, useMemo, useState } from 'react';
-import { UserBookLikesContext } from '../UserBookLikesContext';
-import { BooksContext } from '../BooksContext';
+import UserBookLikesContext from '../UserBookLikesContext';
+import BooksContext from '../BooksContext';
 import { fetchAllBooks, fetchAllUserBookLikes } from '../api';
 import SearchBar from '../../shared/components/SearchBar';
 import FilterBar from '../../shared/components/FilterBar';

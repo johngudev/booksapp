@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import { BooksMap } from '../shared/types';
 
-export const BooksContext = createContext<{
+export default createContext<{
     books: BooksMap;
     setBooks: (newBooks: BooksMap) => void;
 }>({

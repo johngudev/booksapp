@@ -3,9 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import AllBooksPage from './books/components/AllBooksPage';
 import AllMeetingsPage from './meetings/components/AllMeetingsPage';
-import { UserBookLikesContext } from './books/UserBookLikesContext';
-import { BooksContext } from './books/context/BooksContext';
-import { MeetingsContext } from './meetings/MeetingsContext';
+import UserBookLikesContext from './books/UserBookLikesContext';
+import BooksContext from './books/BooksContext';
+import MeetingsContext from './meetings/MeetingsContext';
 import UserSessionContext from './shared/UserSessionContext';
 
 const BooksApp = () => {

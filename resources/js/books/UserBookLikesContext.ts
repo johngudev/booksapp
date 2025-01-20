@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-export const UserBookLikesContext = createContext({
+export default createContext({
     userBookLikes: null,
     setUserBookLikes: (newUserBookLikes: any) => {},
 });

@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { likeBook, unLikeBook } from '../api';
-import { UserBookLikesContext } from '../UserBookLikesContext';
-import { BooksContext } from '../BooksContext';
+import UserBookLikesContext from '../UserBookLikesContext';
+import BooksContext from '../BooksContext';
 import { HeartIcon } from '../../shared/components/Icons';
 
 const CardActions = ({ bookId }) => {
