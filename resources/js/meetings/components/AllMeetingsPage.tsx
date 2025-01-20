@@ -1,13 +1,16 @@
 import { debounce } from 'lodash';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { MeetingsContext } from '../context/MeetingsContext';
+import UserSessionContext from '../../shared/UserSessionContext';
 import { fetchAllMeetings } from '../api';
 import MeetingCard from './MeetingCard';
 import SearchBar from '../../shared/components/SearchBar';
+import { fetchUserSession } from '../../shared/api';
 
 const AllMeetingsPage = () => {
     const [searchValue, setSearchValue] = useState('');
     const { meetings, setMeetings } = useContext(MeetingsContext);
+    const { setUserSession } = useContext(UserSessionContext);
 
     let filteredMeetings = meetings ? Object.values(meetings) : [];
 
@@ -19,6 +22,12 @@ const AllMeetingsPage = () => {
             .catch(() => {
                 console.log('error'); // TODO: error handling
             });
+
+        fetchUserSession()
+            .then((res) => {
+                setUserSession(res);
+            })
+            .catch((err) => console.log(err));
     }, []);
 
     useEffect(() => {
