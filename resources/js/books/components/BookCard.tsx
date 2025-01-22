@@ -1,18 +1,23 @@
 import { useContext } from 'react';
 import { likeBook, unLikeBook } from '../api';
+import { HeartIcon } from '../../shared/components/Icons';
+import { UserBookLikesMap } from '../../shared/types';
 import UserBookLikesContext from '../UserBookLikesContext';
 import BooksContext from '../BooksContext';
-import { HeartIcon } from '../../shared/components/Icons';
 
-const CardActions = ({ bookId }) => {
+const CardActions = ({
+    bookId,
+    userBookLikes,
+}: {
+    bookId: number;
+    userBookLikes: UserBookLikesMap;
+}) => {
     const { books } = useContext(BooksContext);
-    const { userBookLikes, setUserBookLikes } =
-        useContext(UserBookLikesContext);
-    const liked = userBookLikes[bookId];
+    const { setUserBookLikes } = useContext(UserBookLikesContext);
 
-    return (
+    return userBookLikes ? (
         <div className="flex flex-row justify-end px-2 pb-2">
-            {liked ? (
+            {userBookLikes[bookId] ? (
                 <button
                     onClick={() => {
                         unLikeBook(bookId)
@@ -35,7 +40,7 @@ const CardActions = ({ bookId }) => {
                             .catch((err) => console.log(err));
                     }}
                 >
-                    <HeartIcon liked={liked} />
+                    <HeartIcon liked={true} />
                 </button>
             ) : (
                 <button
@@ -51,10 +56,12 @@ const CardActions = ({ bookId }) => {
                             .catch((err) => console.log(err));
                     }}
                 >
-                    <HeartIcon liked={liked} />
+                    <HeartIcon liked={false} />
                 </button>
             )}
         </div>
+    ) : (
+        <></>
     );
 };
 
@@ -63,11 +70,13 @@ const BookCard = ({
     id,
     imageUrl,
     title,
+    userBookLikes,
 }: {
     author: string;
     id: number;
     imageUrl: string;
     title: string;
+    userBookLikes: UserBookLikesMap;
 }) => {
     return (
         <div className="group relative flex flex-col md:w-1/6 bg-white rounded-lg shadow-lg overflow-hidden">
@@ -84,7 +93,7 @@ const BookCard = ({
                     <p className="text-gray-600 mt-2">{author}</p>
                 </div>
             </div>
-            <CardActions bookId={id} />
+            <CardActions bookId={id} userBookLikes={userBookLikes} />
         </div>
     );
 };

@@ -6,6 +6,8 @@ import { fetchAllBooks, fetchAllUserBookLikes } from '../api';
 import SearchBar from '../../shared/components/SearchBar';
 import FilterBar from '../../shared/components/FilterBar';
 import Button from '../../shared/components/Button';
+import LoadingWrapper from '../../shared/components/LoadingWrapper';
+import ErrorMessage from '../../shared/components/ErrorMessage';
 import AddBookModal from './AddBookModal';
 import BookCard from './BookCard';
 
@@ -13,6 +15,7 @@ const AllBooksPage = () => {
     const [searchValue, setSearchValue] = useState('');
     const [showAddBookModal, setShowAddBookModal] = useState(false);
     const [addBookTitle, setAddBookTitle] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const { userBookLikes, setUserBookLikes } =
         useContext(UserBookLikesContext);
@@ -21,21 +24,36 @@ const AllBooksPage = () => {
     let filteredBooks = books ? Object.values(books) : [];
 
     useEffect(() => {
-        fetchAllBooks()
-            .then((res) => {
-                setBooks(res);
-            })
-            .catch(() => {
-                console.log('error'); // TODO: error handling
-            });
+        if (!books) {
+            setLoading(true);
+            fetchAllBooks()
+                .then((res) => {
+                    setLoading(false);
+                    const booksMap = res.reduce((acc, bookData) => {
+                        return { ...acc, [bookData.id]: bookData };
+                    }, {});
+                    setBooks(booksMap);
+                })
+                .catch(() => {
+                    setLoading(false);
+                    console.log('error'); // TODO: error handling
+                });
+        } else {
+            setLoading(false);
+        }
 
-        fetchAllUserBookLikes()
-            .then((res) => {
-                setUserBookLikes(res);
-            })
-            .catch(() => {
-                console.log('error'); // TODO: error handling
-            });
+        if (!userBookLikes) {
+            fetchAllUserBookLikes()
+                .then((res) => {
+                    const userBookLikesMap = res.reduce((acc, likeData) => {
+                        return { ...acc, [likeData.id]: likeData };
+                    }, {});
+                    setUserBookLikes(userBookLikesMap);
+                })
+                .catch(() => {
+                    console.log('error'); // TODO: error handling
+                });
+        }
     }, []);
 
     const handleSearch = ({ target: { value } }) => setSearchValue(value);
@@ -74,55 +92,58 @@ const AllBooksPage = () => {
                     />
                 }
             />
-            {books && userBookLikes ? (
-                <>
-                    <div className="mt-12 flex md:flex-row flex-column flex-col gap-3 flex-wrap justify-center">
-                        {filteredBooks.length ? (
-                            filteredBooks.map((book) => {
-                                const {
-                                    id,
-                                    image_url: imageUrl,
-                                    author,
-                                    title,
-                                } = book;
-                                return (
-                                    <BookCard
-                                        author={author}
-                                        id={id}
-                                        imageUrl={imageUrl}
-                                        key={`${id}:${title}:${author}`}
-                                        title={title}
-                                    />
-                                );
-                            })
-                        ) : (
-                            <div className="flex-col text-center">
-                                <p>No results.</p>
-                                <button
-                                    className="underline hover:no-underline transition ease-in-out delay-150 duration-300 text-green"
-                                    onClick={() => {
-                                        setShowAddBookModal(true);
-                                        setAddBookTitle(searchValue);
+            <div className="mt-12 flex md:flex-row flex-column flex-col gap-3 flex-wrap justify-center">
+                <LoadingWrapper loading={loading}>
+                    {books ? (
+                        <>
+                            {filteredBooks.length ? (
+                                filteredBooks.map((book) => {
+                                    const {
+                                        id,
+                                        image_url: imageUrl,
+                                        author,
+                                        title,
+                                    } = book;
+                                    return (
+                                        <BookCard
+                                            author={author}
+                                            id={id}
+                                            imageUrl={imageUrl}
+                                            key={`${id}:${title}:${author}`}
+                                            title={title}
+                                            userBookLikes={userBookLikes}
+                                        />
+                                    );
+                                })
+                            ) : (
+                                <div className="flex-col text-center">
+                                    <p>No results.</p>
+                                    <button
+                                        className="underline hover:no-underline transition ease-in-out delay-150 duration-300 text-green"
+                                        onClick={() => {
+                                            setShowAddBookModal(true);
+                                            setAddBookTitle(searchValue);
+                                        }}
+                                    >
+                                        Add “{searchValue}” book
+                                    </button>
+                                </div>
+                            )}
+                            {showAddBookModal && (
+                                <AddBookModal
+                                    defaultTitle={addBookTitle}
+                                    onClose={() => {
+                                        setShowAddBookModal(false);
+                                        setAddBookTitle('');
                                     }}
-                                >
-                                    Add “{searchValue}” book
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                    {showAddBookModal && (
-                        <AddBookModal
-                            defaultTitle={addBookTitle}
-                            onClose={() => {
-                                setShowAddBookModal(false);
-                                setAddBookTitle('');
-                            }}
-                        />
+                                />
+                            )}
+                        </>
+                    ) : (
+                        <ErrorMessage />
                     )}
-                </>
-            ) : (
-                <>Loading...</> // TODO: loading spinner
-            )}
+                </LoadingWrapper>
+            </div>
         </div>
     );
 };

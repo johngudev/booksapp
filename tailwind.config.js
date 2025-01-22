@@ -20,6 +20,7 @@ module.exports = {
             transparent: 'transparent',
             current: 'currentColor',
             white: colors.white,
+            gray: colors.gray,
             stone: colors.stone,
             green: {
                 DEFAULT: '#6A8D73',
