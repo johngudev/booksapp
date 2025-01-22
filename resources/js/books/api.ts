@@ -1,4 +1,4 @@
-import { BooksMap } from '../shared/types';
+import { Book } from '../shared/types';
 
 const csrfToken = document
     .querySelector('meta[name="csrf-token"]')
@@ -7,16 +7,14 @@ const csrfToken = document
 const appRoot = 'booksapp.test';
 // const appRoot = 'localhost:8000';
 
-export async function fetchAllBooks(): Promise<BooksMap> {
+export async function fetchAllBooks(): Promise<Book[]> {
     const res = await fetch(`http://${appRoot}/api/books`);
     if (!res.ok) {
         throw new Error(`Response status: ${res.status}`);
     }
 
     const json = await res.json();
-    return json.reduce((acc, bookData) => {
-        return { ...acc, [bookData.id]: bookData };
-    }, {});
+    return json;
 }
 
 export async function fetchAllUserBookLikes() {
@@ -26,9 +24,7 @@ export async function fetchAllUserBookLikes() {
     }
 
     const json = await res.json();
-    return json.reduce((acc, likeData) => {
-        return { ...acc, [likeData.id]: likeData };
-    }, {});
+    return json;
 }
 
 export async function likeBook(bookId: number) {
