@@ -129,21 +129,21 @@ const AllBooksPage = () => {
                                     </button>
                                 </div>
                             )}
-                            {showAddBookModal && (
-                                <AddBookModal
-                                    defaultTitle={addBookTitle}
-                                    onClose={() => {
-                                        setShowAddBookModal(false);
-                                        setAddBookTitle('');
-                                    }}
-                                />
-                            )}
                         </>
                     ) : (
                         <ErrorMessage />
                     )}
                 </LoadingWrapper>
             </div>
+            {showAddBookModal && (
+                <AddBookModal
+                    defaultTitle={addBookTitle}
+                    onClose={() => {
+                        setShowAddBookModal(false);
+                        setAddBookTitle('');
+                    }}
+                />
+            )}
         </div>
     );
 };
