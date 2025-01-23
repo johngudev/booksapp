@@ -4,12 +4,15 @@ import MeetingsContext from '../MeetingsContext';
 import UserSessionContext from '../../shared/UserSessionContext';
 import SearchBar from '../../shared/components/SearchBar';
 import FilterBar from '../../shared/components/FilterBar';
+import Button from '../../shared/components/Button';
 import { fetchUserSession } from '../../shared/api';
 import { fetchAllMeetings } from '../api';
 import MeetingCard from './MeetingCard';
+import AddMeetingModal from './AddMeetingModal';
 
 const AllMeetingsPage = () => {
     const [searchValue, setSearchValue] = useState('');
+    const [showAddMeetingModal, setShowAddMeetingModal] = useState(false);
     const { meetings, setMeetings } = useContext(MeetingsContext);
     const { setUserSession } = useContext(UserSessionContext);
 
@@ -55,12 +58,22 @@ const AllMeetingsPage = () => {
 
     return (
         <div className="mt-12 max-w-screen-xl mx-auto px-6 lg:px-8">
-            <h1 className="text-3xl text-midnight font-bold mb-5">Meetings</h1>
+            <div id="header" className="flex flex-row justify-between">
+                <h1 className="text-3xl text-midnight font-bold mb-5">
+                    Meetings
+                </h1>
+                <Button
+                    use="secondary"
+                    onClick={() => setShowAddMeetingModal(true)}
+                >
+                    Create a meeting
+                </Button>
+            </div>
             <FilterBar
                 start={
                     <SearchBar
                         onChange={debouncedSearch}
-                        placeholder="Search for a book"
+                        placeholder="Search for a meeting"
                     />
                 }
             />
@@ -95,6 +108,11 @@ const AllMeetingsPage = () => {
                             <p>No results.</p>
                         )}
                     </div>
+                    {showAddMeetingModal && (
+                        <AddMeetingModal
+                            onClose={() => setShowAddMeetingModal(false)}
+                        />
+                    )}
                 </>
             ) : (
                 <>Loading...</> // TODO: loading spinner

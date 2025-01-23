@@ -17,6 +17,33 @@ export async function fetchAllMeetings() {
     }, {});
 }
 
+export async function createMeeting({
+    bookId: book_id,
+    description,
+    meetingAt: date_time,
+    zoomLink: zoom_link,
+}) {
+    const res = await fetch(`http://${appRoot}/api/session/meetings/host`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken,
+        },
+        body: JSON.stringify({
+            date_time,
+            description,
+            book_id,
+            zoom_link,
+        }),
+    });
+    if (!res.ok) {
+        throw new Error(`Response status: ${res.status}`);
+    }
+
+    const json = await res.json();
+    return json;
+}
+
 export async function joinMeeting(meetingId: number) {
     const res = await fetch(
         `http://${appRoot}/api/session/meetings/join/${meetingId}`,

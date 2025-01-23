@@ -27,14 +27,17 @@ const BooksApp = () => {
 };
 
 const MeetingsApp = () => {
+    const [books, setBooks] = useState(null);
     const [meetings, setMeetings] = useState(null);
     const [userSession, setUserSession] = useState(null);
 
     return (
         <UserSessionContext.Provider value={{ userSession, setUserSession }}>
-            <MeetingsContext.Provider value={{ meetings, setMeetings }}>
-                <AllMeetingsPage />
-            </MeetingsContext.Provider>
+            <BooksContext.Provider value={{ books, setBooks }}>
+                <MeetingsContext.Provider value={{ meetings, setMeetings }}>
+                    <AllMeetingsPage />
+                </MeetingsContext.Provider>
+            </BooksContext.Provider>
         </UserSessionContext.Provider>
     );
 };
