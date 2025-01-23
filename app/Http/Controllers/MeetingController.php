@@ -154,6 +154,9 @@ class MeetingController extends Controller
         ]);
     
         // Store the meeting in the database
-        return Meeting::create(array_merge($validatedData, ['user_id' => $user_id]));
+        $meeting = Meeting::create(array_merge($validatedData, ['user_id' => $user_id]));
+
+        return $meeting->load(['book', 'host', 'attendees']);
+
     }
 }
