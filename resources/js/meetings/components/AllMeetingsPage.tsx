@@ -5,6 +5,8 @@ import UserSessionContext from '../../shared/UserSessionContext';
 import SearchBar from '../../shared/components/SearchBar';
 import FilterBar from '../../shared/components/FilterBar';
 import Button from '../../shared/components/Button';
+import LoadingWrapper from '../../shared/components/LoadingWrapper';
+import ErrorMessage from '../../shared/components/ErrorMessage';
 import { fetchUserSession } from '../../shared/api';
 import { fetchAllMeetings } from '../api';
 import MeetingCard from './MeetingCard';
@@ -13,19 +15,25 @@ import AddMeetingModal from './AddMeetingModal';
 const AllMeetingsPage = () => {
     const [searchValue, setSearchValue] = useState('');
     const [showAddMeetingModal, setShowAddMeetingModal] = useState(false);
+    const [loading, setLoading] = useState(true);
     const { meetings, setMeetings } = useContext(MeetingsContext);
     const { setUserSession } = useContext(UserSessionContext);
 
     let filteredMeetings = meetings ? Object.values(meetings) : [];
 
     useEffect(() => {
-        fetchAllMeetings()
-            .then((res) => {
-                setMeetings(res);
-            })
-            .catch(() => {
-                console.log('error'); // TODO: error handling
-            });
+        if (!meetings) {
+            setLoading(true);
+            fetchAllMeetings()
+                .then((res) => {
+                    setMeetings(res);
+                    setLoading(false);
+                })
+                .catch(() => {
+                    console.log('error'); // TODO: error handling
+                    setLoading(false);
+                });
+        }
 
         fetchUserSession()
             .then((res) => {
@@ -33,11 +41,6 @@ const AllMeetingsPage = () => {
             })
             .catch((err) => console.log(err));
     }, []);
-
-    useEffect(() => {
-        if (meetings) {
-        }
-    }, [meetings]);
 
     const handleSearch = ({ target: { value } }) => setSearchValue(value);
 
@@ -77,45 +80,47 @@ const AllMeetingsPage = () => {
                     />
                 }
             />
-            {meetings ? (
-                <>
-                    <div className="mt-12 flex flex-column flex-col gap-3 flex-wrap">
-                        {filteredMeetings.length ? (
-                            filteredMeetings.map((meeting) => {
-                                const {
-                                    attendees,
-                                    book,
-                                    date_time: meetingAt,
-                                    description,
-                                    host,
-                                    id: meetingId,
-                                    zoom_link: zoomLink,
-                                } = meeting;
-                                return (
-                                    <MeetingCard
-                                        attendees={attendees}
-                                        book={book}
-                                        description={description}
-                                        host={host}
-                                        key={meetingId}
-                                        meetingAt={meetingAt}
-                                        meetingId={meetingId}
-                                        zoomLink={zoomLink}
-                                    />
-                                );
-                            })
-                        ) : (
-                            <p>No results.</p>
-                        )}
-                    </div>
-                    {showAddMeetingModal && (
-                        <AddMeetingModal
-                            onClose={() => setShowAddMeetingModal(false)}
-                        />
+            <div className="mt-12 flex flex-column flex-col gap-3 flex-wrap">
+                <LoadingWrapper loading={loading}>
+                    {meetings ? (
+                        <>
+                            {filteredMeetings.length ? (
+                                filteredMeetings.map((meeting) => {
+                                    const {
+                                        attendees,
+                                        book,
+                                        date_time: meetingAt,
+                                        description,
+                                        host,
+                                        id: meetingId,
+                                        zoom_link: zoomLink,
+                                    } = meeting;
+                                    return (
+                                        <MeetingCard
+                                            attendees={attendees}
+                                            book={book}
+                                            description={description}
+                                            host={host}
+                                            key={meetingId}
+                                            meetingAt={meetingAt}
+                                            meetingId={meetingId}
+                                            zoomLink={zoomLink}
+                                        />
+                                    );
+                                })
+                            ) : (
+                                <p>No results.</p>
+                            )}
+                        </>
+                    ) : (
+                        <ErrorMessage />
                     )}
-                </>
-            ) : (
-                <>Loading...</> // TODO: loading spinner
+                </LoadingWrapper>
+            </div>
+            {showAddMeetingModal && (
+                <AddMeetingModal
+                    onClose={() => setShowAddMeetingModal(false)}
+                />
             )}
         </div>
     );
