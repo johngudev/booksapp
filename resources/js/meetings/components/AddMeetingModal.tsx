@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import Button from '../../shared/components/Button';
-import UserSessionContext from '../../shared/UserSessionContext';
+import LoadingWrapper from '../../shared/components/LoadingWrapper';
+import ErrorMessage from '../../shared/components/ErrorMessage';
 import BooksContext from '../../books/BooksContext';
 import { fetchAllBooks } from '../../books/api';
 import MeetingsContext from '../MeetingsContext';
@@ -16,6 +17,7 @@ export default function AddMeetingModal({ onClose }: AddMeetingModalProps) {
     const { meetings, setMeetings } = useContext(MeetingsContext);
     const { books, setBooks } = useContext(BooksContext);
 
+    const [loading, setLoading] = useState(false);
     const [bookId, setBookId] = useState(null);
     const [date, setDate] = useState(null);
     const [description, setDescription] = useState('');
@@ -26,15 +28,21 @@ export default function AddMeetingModal({ onClose }: AddMeetingModalProps) {
 
     useEffect(() => {
         if (!books) {
+            setLoading(true);
             fetchAllBooks()
                 .then((res) => {
-                    setBooks(res);
+                    setLoading(false);
+                    const booksMap = res.reduce((acc, bookData) => {
+                        return { ...acc, [bookData.id]: bookData };
+                    }, {});
+                    setBooks(booksMap);
                 })
-                .catch(() => {
+                .catch((err) => {
                     console.log('error'); // TODO: error handling
+                    setLoading(false);
                 });
         }
-    });
+    }, [books]);
 
     const closeModal = () => {
         // allow scrolling background content again
@@ -90,138 +98,145 @@ export default function AddMeetingModal({ onClose }: AddMeetingModalProps) {
                         </svg>
                     </button>
                 </div>
-                {books && (
-                    <form className="space-y-6" onSubmit={onSubmit}>
-                        {/* Modal content */}
-                        <div id="body" className="mb-4">
-                            <div className="my-3">
-                                <label
-                                    htmlFor="book"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Book
-                                </label>
-                                <select
-                                    className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    defaultValue=""
-                                    id="book"
-                                    name="book"
-                                    onChange={({
-                                        currentTarget: { value },
-                                    }) => {
-                                        setBookId(value);
-                                    }}
-                                >
-                                    <option value="" disabled hidden>
-                                        Select a book
-                                    </option>
-                                    {Object.values(books).map((book) => (
-                                        <option key={book.id} value={book.id}>
-                                            {book.title}
+                <LoadingWrapper loading={loading}>
+                    {books ? (
+                        <form className="space-y-6" onSubmit={onSubmit}>
+                            {/* Modal content */}
+                            <div id="body" className="mb-4">
+                                <div className="my-3">
+                                    <label
+                                        htmlFor="book"
+                                        className="block text-sm font-medium text-gray-700"
+                                    >
+                                        Book
+                                    </label>
+                                    <select
+                                        className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        defaultValue=""
+                                        id="book"
+                                        name="book"
+                                        onChange={({
+                                            currentTarget: { value },
+                                        }) => {
+                                            setBookId(value);
+                                        }}
+                                    >
+                                        <option value="" disabled hidden>
+                                            Select a book
                                         </option>
-                                    ))}
-                                </select>
+                                        {Object.values(books).map((book) => (
+                                            <option
+                                                key={book.id}
+                                                value={book.id}
+                                            >
+                                                {book.title}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className="my-3">
+                                    <label
+                                        htmlFor="author"
+                                        className="block text-sm font-medium text-gray-700"
+                                    >
+                                        Description
+                                    </label>
+                                    <textarea
+                                        id="author"
+                                        name="author"
+                                        className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        onChange={({
+                                            currentTarget: { value },
+                                        }) => setDescription(value)}
+                                        placeholder="Enter description"
+                                        value={description}
+                                        required
+                                    />
+                                </div>
+                                <div className="my-3">
+                                    <label
+                                        htmlFor="date"
+                                        className="block text-sm font-medium text-gray-700"
+                                    >
+                                        Date
+                                    </label>
+                                    <input
+                                        className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        id="date"
+                                        type="date"
+                                        min={today}
+                                        name="date"
+                                        onChange={({
+                                            currentTarget: { value },
+                                        }) => setDate(value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="my-3">
+                                    <label
+                                        htmlFor="time"
+                                        className="block text-sm font-medium text-gray-700"
+                                    >
+                                        Time
+                                    </label>
+                                    <input
+                                        className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        id="time"
+                                        type="time"
+                                        name="time"
+                                        onChange={({
+                                            currentTarget: { value },
+                                        }) => setTime(value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="my-3">
+                                    <label
+                                        htmlFor="zoomLink"
+                                        className="block text-sm font-medium text-gray-700"
+                                    >
+                                        Zoom Link
+                                    </label>
+                                    <input
+                                        className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        id="zoomLink"
+                                        type="url"
+                                        name="zoomLink"
+                                        onChange={({
+                                            currentTarget: { value },
+                                        }) => setZoomLink(value)}
+                                        required
+                                    />
+                                </div>
                             </div>
-                            <div className="my-3">
-                                <label
-                                    htmlFor="author"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Description
-                                </label>
-                                <textarea
-                                    id="author"
-                                    name="author"
-                                    className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    onChange={({ currentTarget: { value } }) =>
-                                        setDescription(value)
+                            {/* Footer */}
+                            <div className="h-12" id="footer">
+                                <Button
+                                    disabled={
+                                        !bookId ||
+                                        !description ||
+                                        !date ||
+                                        !time ||
+                                        !zoomLink
                                     }
-                                    placeholder="Enter description"
-                                    value={description}
-                                    required
-                                />
-                            </div>
-                            <div className="my-3">
-                                <label
-                                    htmlFor="date"
-                                    className="block text-sm font-medium text-gray-700"
+                                    type="submit"
+                                    use="primary"
                                 >
-                                    Date
-                                </label>
-                                <input
-                                    className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    id="date"
-                                    type="date"
-                                    min={today}
-                                    name="date"
-                                    onChange={({ currentTarget: { value } }) =>
-                                        setDate(value)
-                                    }
-                                    required
-                                />
-                            </div>
-                            <div className="my-3">
-                                <label
-                                    htmlFor="time"
-                                    className="block text-sm font-medium text-gray-700"
+                                    Create
+                                </Button>
+                                <Button
+                                    onClick={closeModal}
+                                    type="button"
+                                    use="secondary"
                                 >
-                                    Time
-                                </label>
-                                <input
-                                    className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    id="time"
-                                    type="time"
-                                    name="time"
-                                    onChange={({ currentTarget: { value } }) =>
-                                        setTime(value)
-                                    }
-                                    required
-                                />
+                                    Cancel
+                                </Button>
                             </div>
-                            <div className="my-3">
-                                <label
-                                    htmlFor="zoomLink"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Zoom Link
-                                </label>
-                                <input
-                                    className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    id="zoomLink"
-                                    type="url"
-                                    name="zoomLink"
-                                    onChange={({ currentTarget: { value } }) =>
-                                        setZoomLink(value)
-                                    }
-                                    required
-                                />
-                            </div>
-                        </div>
-                        {/* Footer */}
-                        <div className="h-12" id="footer">
-                            <Button
-                                disabled={
-                                    !bookId ||
-                                    !description ||
-                                    !date ||
-                                    !time ||
-                                    !zoomLink
-                                }
-                                type="submit"
-                                use="primary"
-                            >
-                                Create
-                            </Button>
-                            <Button
-                                onClick={closeModal}
-                                type="button"
-                                use="secondary"
-                            >
-                                Cancel
-                            </Button>
-                        </div>
-                    </form>
-                )}
+                        </form>
+                    ) : (
+                        <ErrorMessage />
+                    )}
+                </LoadingWrapper>
             </div>
         </>
     );
