@@ -22,6 +22,8 @@ export default function AddMeetingModal({ onClose }: AddMeetingModalProps) {
     const [time, setTime] = useState(null);
     const [zoomLink, setZoomLink] = useState('');
 
+    const today = new Date().toISOString().split('T')[0];
+
     useEffect(() => {
         if (!books) {
             fetchAllBooks()
@@ -101,6 +103,7 @@ export default function AddMeetingModal({ onClose }: AddMeetingModalProps) {
                                 </label>
                                 <select
                                     className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    defaultValue=""
                                     id="book"
                                     name="book"
                                     onChange={({
@@ -109,6 +112,9 @@ export default function AddMeetingModal({ onClose }: AddMeetingModalProps) {
                                         setBookId(value);
                                     }}
                                 >
+                                    <option value="" disabled hidden>
+                                        Select a book
+                                    </option>
                                     {Object.values(books).map((book) => (
                                         <option key={book.id} value={book.id}>
                                             {book.title}
@@ -146,6 +152,7 @@ export default function AddMeetingModal({ onClose }: AddMeetingModalProps) {
                                     className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     id="date"
                                     type="date"
+                                    min={today}
                                     name="date"
                                     onChange={({ currentTarget: { value } }) =>
                                         setDate(value)
