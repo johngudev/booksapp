@@ -73,7 +73,7 @@ const AllMeetingsPage = () => {
                 start={
                     <SearchBar
                         onChange={debouncedSearch}
-                        placeholder="Search for a book"
+                        placeholder="Search for a meeting"
                     />
                 }
             />
