@@ -79,7 +79,7 @@ const BookCard = ({
     userBookLikes: UserBookLikesMap;
 }) => {
     return (
-        <div className="group relative flex flex-col md:w-1/6 bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="group relative flex flex-col bookcard-width bg-white rounded-lg shadow-lg overflow-hidden">
             <img
                 src={imageUrl}
                 alt="Book cover"
