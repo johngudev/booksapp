@@ -7,9 +7,13 @@ const csrfToken = document
 const appRoot = 'booksapp.test';
 // const appRoot = 'localhost:8000';
 
-const apiBooksIndexUrl=document
+const apiBooksIndexUrl = document
     .getElementById('react-root')
-    .getAttribute('data-api-books-index')
+    .getAttribute('data-api-books-index');
+
+const apiSessionBooksIndexUrl = document
+    .getElementById('react-root')
+    .getAttribute('data-api-session-books');
 
 export async function fetchAllBooks(): Promise<Book[]> {
     const res = await fetch(apiBooksIndexUrl);
@@ -22,7 +26,7 @@ export async function fetchAllBooks(): Promise<Book[]> {
 }
 
 export async function fetchAllUserBookLikes() {
-    const res = await fetch(`http://${appRoot}/api/session/books`);
+    const res = await fetch(apiSessionBooksIndexUrl);
     if (!res.ok) {
         throw new Error(`Response status: ${res.status}`);
     }
@@ -32,7 +36,7 @@ export async function fetchAllUserBookLikes() {
 }
 
 export async function likeBook(bookId: number) {
-    const res = await fetch(`http://${appRoot}/api/session/books/${bookId}`, {
+    const res = await fetch(`${apiSessionBooksIndexUrl}/${bookId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -48,7 +52,7 @@ export async function likeBook(bookId: number) {
 }
 
 export async function unLikeBook(bookId: number) {
-    const res = await fetch(`http://${appRoot}/api/session/books/${bookId}`, {
+    const res = await fetch(`${apiSessionBooksIndexUrl}/${bookId}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -72,7 +76,7 @@ export async function addBook({
     title: string;
     image_url?: string;
 }) {
-    const res = await fetch(`http://${appRoot}/api/books`, {
+    const res = await fetch(apiBooksIndexUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
