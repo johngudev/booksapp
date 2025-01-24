@@ -36,10 +36,14 @@
                     @endauth
                 </div>
             @endif
-            <div class="w-screen h-screen bg-yellow text-center content-center">
+            <div class="w-screen h-screen bg-gradient-to-bl from-yellow to-yellow-500 text-center content-center">
                 <h1 class="text-7xl my-10">talk about your <span class="font-[Garamond] italic text-coffee-light">favorite</span> books 
                 <span class="font-[Garamond] italic text-coffee-light">anytime</span>, <span class="font-[Garamond] italic text-coffee-light">anywhere</span>, with <span class="font-[Garamond] italic text-coffee-light">anyone</span> in the world</h1>
-                <x-nav-button :href="route('register')">join</x-nav-button>
+                @auth
+                    <x-nav-button :href="route('books.list')">browse</x-nav-button>
+                @else
+                    <x-nav-button :href="route('register')">join</x-nav-button>
+                @endauth
             </div>
         </div>
 
