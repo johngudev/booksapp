@@ -1,5 +1,11 @@
 <x-app-layout>
 
+<style>
+    .bookcard-width {
+        width: calc(16.66% - 0.625rem); 
+    }
+</style>
+
 <div class="pb-12" id="react-root" data-api-books-index="{{ route('books.index') }}" data-api-session-books="{{ route('session.books.index') }}" data-books="{{$books}}"></div>
 
     <!-- <form class="max-w-md mx-auto mt-12">   

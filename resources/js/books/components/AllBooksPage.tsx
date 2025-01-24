@@ -92,7 +92,7 @@ const AllBooksPage = () => {
                     />
                 }
             />
-            <div className="mt-12 flex md:flex-row flex-column flex-col gap-3 flex-wrap justify-center">
+            <div className="mt-12 flex md:flex-row flex-column flex-col gap-3 flex-wrap">
                 <LoadingWrapper loading={loading}>
                     {books ? (
                         <>
