@@ -77,7 +77,6 @@ const AllBooksPage = () => {
             <div id="header" className="flex flex-row justify-between">
                 <h1 className="text-3xl text-midnight font-bold mb-5">Books</h1>
                 <Button
-                    // className="underline hover:no-underline transition ease-in-out delay-150 duration-300"
                     use="secondary"
                     onClick={() => setShowAddBookModal(true)}
                 >
@@ -92,7 +91,7 @@ const AllBooksPage = () => {
                     />
                 }
             />
-            <div className="mt-12 flex md:flex-row flex-column flex-col gap-3 flex-wrap justify-center">
+            <div className="mt-12 flex sm:flex-row flex-row  gap-3 flex-wrap">
                 <LoadingWrapper loading={loading}>
                     {books ? (
                         <>
