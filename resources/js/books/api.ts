@@ -7,8 +7,12 @@ const csrfToken = document
 const appRoot = 'booksapp.test';
 // const appRoot = 'localhost:8000';
 
+const apiBooksIndexUrl=document
+    .getElementById('react-root')
+    .getAttribute('data-api-books-index')
+
 export async function fetchAllBooks(): Promise<Book[]> {
-    const res = await fetch(`http://${appRoot}/api/books`);
+    const res = await fetch(apiBooksIndexUrl);
     if (!res.ok) {
         throw new Error(`Response status: ${res.status}`);
     }
