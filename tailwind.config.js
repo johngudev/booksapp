@@ -28,9 +28,10 @@ module.exports = {
             },
             midnight: '#223843',
             sand: '#faedcd',
-            'pale-yellow': '#fefae0',
+            yellow: '#fefae0',
             slate: colors.slate,
             coffee: { light: '#D4A373', dark: '#7D6840' },
+            red: { DEFAULT: '#EF2D56', dark: '#AB0D2F' },
         },
     },
 
