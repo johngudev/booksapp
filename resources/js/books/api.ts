@@ -1,19 +1,12 @@
 import { Book } from '../shared/types';
+import { getApiUrl } from '../shared/utils';
 
 const csrfToken = document
     .querySelector('meta[name="csrf-token"]')
     .getAttribute('content');
 
-const appRoot = 'booksapp.test';
-// const appRoot = 'localhost:8000';
-
-const apiBooksIndexUrl = document
-    .getElementById('react-root')
-    .getAttribute('data-api-books-index');
-
-const apiSessionBooksIndexUrl = document
-    .getElementById('react-root')
-    .getAttribute('data-api-session-books');
+const apiBooksIndexUrl = getApiUrl('data-api-books-index');
+const apiSessionBooksIndexUrl = getApiUrl('data-api-session-books');
 
 export async function fetchAllBooks(): Promise<Book[]> {
     const res = await fetch(apiBooksIndexUrl);

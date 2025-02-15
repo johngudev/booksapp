@@ -7,3 +7,14 @@ export const pluralize = (count: number, singular: string, plural?: string) => {
         return `${count} ${singular}s`;
     }
 };
+
+export const getApiUrl = (attribute: string) => {
+    const rootElement = document.getElementById('react-root')
+        ? document.getElementById('react-root')
+        : document.getElementById('meetings-root')
+        ? document.getElementById('meetings-root')
+        : document.getElementById('dashboard-root')
+        ? document.getElementById('dashboard-root')
+        : null;
+    return rootElement ? rootElement.getAttribute(attribute) : '';
+};

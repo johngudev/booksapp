@@ -5,15 +5,10 @@ import { UserBookLikesMap } from '../../shared/types';
 import UserBookLikesContext from '../UserBookLikesContext';
 import BooksContext from '../BooksContext';
 
-const CardActions = ({
-    bookId,
-    userBookLikes,
-}: {
-    bookId: number;
-    userBookLikes: UserBookLikesMap;
-}) => {
+const CardActions = ({ bookId }: { bookId: number }) => {
     const { books } = useContext(BooksContext);
-    const { setUserBookLikes } = useContext(UserBookLikesContext);
+    const { userBookLikes, setUserBookLikes } =
+        useContext(UserBookLikesContext);
 
     return userBookLikes ? (
         <div className="flex flex-row justify-end px-2 pb-2">
@@ -70,13 +65,11 @@ const BookCard = ({
     id,
     imageUrl,
     title,
-    userBookLikes,
 }: {
     author: string;
     id: number;
     imageUrl: string;
     title: string;
-    userBookLikes: UserBookLikesMap;
 }) => {
     return (
         <div className="group relative flex flex-col bookcard-width bg-white rounded-lg shadow-lg overflow-hidden">
@@ -93,7 +86,7 @@ const BookCard = ({
                     <p className="text-gray-600 mt-2">{author}</p>
                 </div>
             </div>
-            <CardActions bookId={id} userBookLikes={userBookLikes} />
+            <CardActions bookId={id} />
         </div>
     );
 };

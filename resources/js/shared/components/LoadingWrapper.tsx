@@ -29,5 +29,11 @@ export default function LoadingWrapper({
     children: React.ReactNode;
     loading: boolean;
 }) {
-    return loading ? <LoadingSpinner /> : <>{children}</>;
+    return loading ? (
+        <div className="w-full h-full flex justify-center">
+            <LoadingSpinner />
+        </div>
+    ) : (
+        <>{children}</>
+    );
 }
