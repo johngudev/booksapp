@@ -197,6 +197,10 @@ const SelectBookStep = ({ bookId, setBookId }) => {
     }
     return (
         <>
+            <div className="mb-4">
+                <b>Selected book:</b>{' '}
+                {bookId && books ? books[bookId].title : 'No book selected yet'}
+            </div>
             <FilterBar
                 start={
                     <SearchBar
@@ -273,7 +277,6 @@ export default function AddMeetingWizard({ onClose }) {
 
     const onSubmit = (evt: React.FormEvent) => {
         evt.preventDefault();
-        console.log('submitting', bookId, description, date, time, zoomLink);
         createMeeting({
             bookId,
             description,
@@ -296,8 +299,8 @@ export default function AddMeetingWizard({ onClose }) {
     return (
         <>
             {/* Overlay */}
-            <div className="fixed w-full h-full top-0 left-0 bg-gray-100">
-                <form onSubmit={onSubmit}>
+            <div className="fixed w-full h-full top-0 left-0 bg-gray-100 overflow-auto">
+                <form className="pb-24" onSubmit={onSubmit}>
                     {/* Header */}
                     <div
                         className="h-10 mb-4 flex justify-between p-16 "
