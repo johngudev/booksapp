@@ -1,11 +1,16 @@
 import { useContext } from 'react';
 import { likeBook, unLikeBook } from '../api';
 import { HeartIcon } from '../../shared/components/Icons';
-import { UserBookLikesMap } from '../../shared/types';
 import UserBookLikesContext from '../UserBookLikesContext';
 import BooksContext from '../BooksContext';
 
-const CardActions = ({ bookId }: { bookId: number }) => {
+const CardActions = ({
+    bookId,
+    disabled,
+}: {
+    bookId: number;
+    disabled: boolean;
+}) => {
     const { books } = useContext(BooksContext);
     const { userBookLikes, setUserBookLikes } =
         useContext(UserBookLikesContext);
@@ -14,6 +19,7 @@ const CardActions = ({ bookId }: { bookId: number }) => {
         <div className="flex flex-row justify-end px-2 pb-2">
             {userBookLikes[bookId] ? (
                 <button
+                    disabled={disabled}
                     onClick={() => {
                         unLikeBook(bookId)
                             .then(() => {
@@ -40,6 +46,7 @@ const CardActions = ({ bookId }: { bookId: number }) => {
             ) : (
                 <button
                     className="invisible group-hover:visible"
+                    disabled={disabled}
                     onClick={() => {
                         likeBook(bookId)
                             .then(() => {
@@ -62,17 +69,30 @@ const CardActions = ({ bookId }: { bookId: number }) => {
 
 const BookCard = ({
     author,
+    disabled = false,
     id,
     imageUrl,
+    onClick,
+    selected,
     title,
 }: {
     author: string;
+    disabled?: boolean;
     id: number;
     imageUrl: string;
+    onClick?: () => void;
+    selected?: boolean;
     title: string;
 }) => {
+    const isSelectable = Boolean(onClick);
     return (
-        <div className="group relative flex flex-col bookcard-width bg-white rounded-lg shadow-lg overflow-hidden">
+        <div
+            className={`group relative flex flex-col bookcard-width bg-white rounded-lg shadow-lg overflow-hidden ${
+                isSelectable &&
+                'hover:cursor-pointer hover:ring-2 hover:ring-indigo-500'
+            } ${selected && 'ring-2 ring-indigo-500'}`}
+            onClick={onClick}
+        >
             <img
                 src={imageUrl}
                 alt="Book cover"
@@ -86,7 +106,7 @@ const BookCard = ({
                     <p className="text-gray-600 mt-2">{author}</p>
                 </div>
             </div>
-            <CardActions bookId={id} />
+            <CardActions bookId={id} disabled={disabled} />
         </div>
     );
 };

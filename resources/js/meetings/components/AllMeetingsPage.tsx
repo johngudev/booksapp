@@ -10,7 +10,7 @@ import ErrorMessage from '../../shared/components/ErrorMessage';
 import { fetchUserSession } from '../../shared/api';
 import { fetchAllMeetings } from '../api';
 import MeetingCard from './MeetingCard';
-import AddMeetingModal from './AddMeetingModal';
+import AddMeetingWizard from './AddMeetingWizard';
 
 const AllMeetingsPage = () => {
     const [searchValue, setSearchValue] = useState('');
@@ -118,7 +118,7 @@ const AllMeetingsPage = () => {
                 </LoadingWrapper>
             </div>
             {showAddMeetingModal && (
-                <AddMeetingModal
+                <AddMeetingWizard
                     onClose={() => setShowAddMeetingModal(false)}
                 />
             )}

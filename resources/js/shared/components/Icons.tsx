@@ -34,3 +34,39 @@ export const HeartIcon = ({ liked }: { liked: boolean }) => (
         />
     </svg>
 );
+
+export const CheckMarkIcon = () => (
+    <svg
+        fill="#ffffff"
+        width="64px"
+        height="64px"
+        viewBox="-576 -576 3072.00 3072.00"
+        xmlns="http://www.w3.org/2000/svg"
+        stroke="#ffffff"
+    >
+        <g id="SVGRepo_bgCarrier" stroke-width="0" />
+        <g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+        <g id="SVGRepo_iconCarrier">
+            <path d="M1743.858 267.012 710.747 1300.124 176.005 765.382 0 941.387l710.747 710.871 1209.24-1209.116z" />
+        </g>
+    </svg>
+);
+
+export const ExitIcon = () => (
+    <svg
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M6.2253 4.81108C5.83477 4.42056 5.20161 4.42056 4.81108 4.81108C4.42056 5.20161 4.42056 5.83477 4.81108 6.2253L10.5858 12L4.81114 17.7747C4.42062 18.1652 4.42062 18.7984 4.81114 19.1889C5.20167 19.5794 5.83483 19.5794 6.22535 19.1889L12 13.4142L17.7747 19.1889C18.1652 19.5794 18.7984 19.5794 19.1889 19.1889C19.5794 18.7984 19.5794 18.1652 19.1889 17.7747L13.4142 12L19.189 6.2253C19.5795 5.83477 19.5795 5.20161 19.189 4.81108C18.7985 4.42056 18.1653 4.42056 17.7748 4.81108L12 10.5858L6.2253 4.81108Z"
+            fill="currentColor"
+        />
+    </svg>
+);
