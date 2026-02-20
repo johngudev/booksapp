@@ -3,7 +3,7 @@
 const appRoot = 'novelglot.com';
 
 export async function fetchUserSession() {
-    const res = await fetch(`http://${appRoot}/api/session/user`);
+    const res = await fetch(`https://${appRoot}/api/session/user`);
     if (!res.ok) {
         throw new Error(`Response status: ${res.status}`);
     }
