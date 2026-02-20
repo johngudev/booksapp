@@ -2,7 +2,7 @@ const csrfToken = document
     .querySelector('meta[name="csrf-token"]')
     .getAttribute('content');
 
-const appRoot = 'booksapp.test';
+const appRoot = 'novelglot.com';
 // const appRoot = 'localhost:8000';
 
 export async function fetchAllMeetings() {
