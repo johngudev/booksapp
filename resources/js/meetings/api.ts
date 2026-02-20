@@ -6,7 +6,7 @@ const appRoot = 'novelglot.com';
 // const appRoot = 'localhost:8000';
 
 export async function fetchAllMeetings() {
-    const res = await fetch(`http://${appRoot}/api/meetings`);
+    const res = await fetch(`https://${appRoot}/api/meetings`);
     if (!res.ok) {
         throw new Error(`Response status: ${res.status}`);
     }
@@ -23,7 +23,7 @@ export async function createMeeting({
     meetingAt: date_time,
     zoomLink: zoom_link,
 }) {
-    const res = await fetch(`http://${appRoot}/api/session/meetings/host`, {
+    const res = await fetch(`https://${appRoot}/api/session/meetings/host`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ export async function createMeeting({
 
 export async function joinMeeting(meetingId: number) {
     const res = await fetch(
-        `http://${appRoot}/api/session/meetings/join/${meetingId}`,
+        `https://${appRoot}/api/session/meetings/join/${meetingId}`,
         {
             method: 'POST',
             headers: {
@@ -65,7 +65,7 @@ export async function joinMeeting(meetingId: number) {
 
 export async function leaveMeeting(meetingId: number) {
     const res = await fetch(
-        `http://${appRoot}/api/session/meetings/join/${meetingId}`,
+        `https://${appRoot}/api/session/meetings/join/${meetingId}`,
         {
             method: 'DELETE',
             headers: {
