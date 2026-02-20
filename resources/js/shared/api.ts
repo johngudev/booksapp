@@ -1,5 +1,6 @@
-const appRoot = 'booksapp.test';
+// const appRoot = 'booksapp.test';
 // const appRoot = 'localhost:8000';
+const appRoot = 'novelglot.com';
 
 export async function fetchUserSession() {
     const res = await fetch(`http://${appRoot}/api/session/user`);
