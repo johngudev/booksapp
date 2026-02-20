@@ -148,7 +148,7 @@ class MeetingController extends Controller
         // Validate the incoming data
         $validatedData = $request->validate([
             'book_id' => 'required|exists:books,id',
-            'zoom_link' => 'required',
+            // 'zoom_link' => 'required',
             'date_time' => 'required|date',
             'description' => 'required',
         ]);
