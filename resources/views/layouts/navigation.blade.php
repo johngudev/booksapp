@@ -15,13 +15,13 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-
+<!-- 
                     <x-nav-link :href="route('books.list')" :active="request()->routeIs('books.list')">
                         {{ __('Books') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('meetings.list')" :active="request()->routeIs('meetings.list')">
-                        {{ __('Meetings') }}
+                        {{ __('Meetings') }} -->
                     </x-nav-link>
 
                 </div>
@@ -79,12 +79,12 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('books.list')" :active="request()->routeIs('books.list')">
+            <!-- <x-responsive-nav-link :href="route('books.list')" :active="request()->routeIs('books.list')">
                 {{ __('Books') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('meetings.list')" :active="request()->routeIs('meetings.list')">
                 {{ __('Meetings') }}
-            </x-responsive-nav-link>
+            </x-responsive-nav-link> -->
             
         </div>
 

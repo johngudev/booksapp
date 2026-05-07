@@ -105,10 +105,10 @@
            class="px-3 sm:px-4 py-2 text-sm font-semibold text-ink rounded-full hover:bg-paper-2 transition-colors">
           Dashboard
         </a>
-        <a href="{{ route('books.list') }}"
+        <!-- <a href="{{ route('books.list') }}"
            class="px-4 py-2 text-sm font-semibold text-paper bg-ink rounded-full tracking-tight hover:-translate-y-px transition-transform">
           Browse
-        </a>
+        </a> -->
       @else
         @if (Route::has('login'))
           <a href="{{ route('login') }}"
@@ -144,10 +144,10 @@
         </p>
         <div class="flex flex-wrap gap-3 mt-8 items-center">
           @auth
-            <a href="{{ route('books.list') }}"
+            <!-- <a href="{{ route('books.list') }}"
                class="px-6 py-3.5 rounded-full bg-ink text-paper font-semibold text-[15px] tracking-tight hover:-translate-y-px transition-transform">
               Browse clubs
-            </a>
+            </a> -->
           @else
             <a href="{{ route('register') }}"
                class="px-6 py-3.5 rounded-full bg-ink text-paper font-semibold text-[15px] tracking-tight hover:-translate-y-px transition-transform">
@@ -665,10 +665,10 @@
       <p class="font-serif text-base sm:text-lg text-ink-2 mt-3.5 mb-0 leading-normal">Reserve your first seat in under a minute. No subscriptions, no algorithm.</p>
     </div>
     @auth
-      <a href="{{ route('books.list') }}"
+      <!-- <a href="{{ route('books.list') }}"
          class="px-7 py-4 rounded-full bg-ink text-paper font-semibold text-[15px] hover:-translate-y-px transition-transform self-start sm:self-auto flex-shrink-0">
         Browse books
-      </a>
+      </a> -->
     @else
       <a href="{{ route('register') }}"
          class="px-7 py-4 rounded-full bg-ink text-paper font-semibold text-[15px] hover:-translate-y-px transition-transform self-start sm:self-auto flex-shrink-0">

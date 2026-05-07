@@ -43,7 +43,7 @@
           <div class="absolute inset-0 cover-bg-{{ $variant }}"></div>
           <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-{{ $variant }} opacity-40"></div>
           <div class="absolute left-3.5 right-3.5 top-[30%] h-[40%] bg-paper/90 flex flex-col justify-center items-center text-center px-1.5">
-            <div class="font-mono text-[9px] tracking-[0.14em] uppercase text-muted mb-2">book cover</div>
+            <!-- <div class="font-mono text-[9px] tracking-[0.14em] uppercase text-muted mb-2">book cover</div> -->
             <div class="font-serif text-sm leading-tight font-semibold text-ink text-balance">{{ $meeting->book->title }}</div>
             <div class="font-serif text-[10px] italic text-ink-2 mt-1.5">{{ $meeting->book->author }}</div>
           </div>
