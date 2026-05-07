@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\SessionController;
+use App\Models\Meeting;
 
 
 /*
@@ -23,7 +24,12 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $meetings = Meeting::with(['book', 'host', 'attendees'])
+        // ->where('date_time', '>=', now())
+        ->orderBy('date_time')
+        ->get();
+
+    return view('dashboard', ['meetings' => $meetings]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
