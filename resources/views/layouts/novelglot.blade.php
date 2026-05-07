@@ -102,14 +102,14 @@
            class="hidden md:inline-block px-3.5 py-2 text-sm {{ request()->routeIs('dashboard') ? 'text-ink font-semibold' : 'text-ink-2 hover:text-ink' }} transition-colors">
           Dashboard
         </a>
-        <a href="{{ route('books.list') }}"
+        <!-- <a href="{{ route('books.list') }}"
            class="hidden md:inline-block px-3.5 py-2 text-sm {{ request()->routeIs('books.list') ? 'text-ink font-semibold' : 'text-ink-2 hover:text-ink' }} transition-colors">
           Books
         </a>
         <a href="{{ route('meetings.list') }}"
            class="hidden md:inline-block px-3.5 py-2 text-sm {{ request()->routeIs('meetings.list') ? 'text-ink font-semibold' : 'text-ink-2 hover:text-ink' }} transition-colors">
           Meetings
-        </a>
+        </a> -->
         <span class="hidden md:inline-block w-px h-5 bg-rule mx-3"></span>
 
         {{-- User dropdown (Alpine-powered, mirrors layouts/navigation.blade.php) --}}
