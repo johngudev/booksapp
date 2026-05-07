@@ -54,6 +54,10 @@
     <style>
       /* Things awkward in pure Tailwind: OKLCH gradients, layered shadows, decorative patterns. */
 
+      /* added for smooth scrolling of browse clubs button tag */
+      html { scroll-behavior: smooth; }
+
+
       body { font-family: 'Manrope', -apple-system, system-ui, sans-serif; }
 
       /* ---- Avatar helpers ---- */
