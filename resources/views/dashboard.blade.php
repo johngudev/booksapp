@@ -92,7 +92,7 @@
              class="px-5 py-3 rounded-full bg-ink text-paper border border-ink font-semibold text-sm tracking-tight hover:-translate-y-px transition-transform text-center">
             Join meeting
           </a>
-          <div class="text-[11px] text-muted text-center tracking-wide">Free · 60 seconds</div>
+          <div class="text-[11px] text-muted text-center tracking-wide"></div>
         </div>
 
       </article>
