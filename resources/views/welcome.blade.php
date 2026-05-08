@@ -153,7 +153,7 @@
             </a>
           @endauth
           <a class="px-3 py-3.5 text-sm text-ink-2 font-medium hover:text-ink flex items-center gap-1.5 transition-colors" href="#listing">
-            See upcoming clubs
+            See upcoming events
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
