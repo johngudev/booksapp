@@ -237,7 +237,7 @@
       <div class="absolute inset-0 cover-bg-forest"></div>
       <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-forest opacity-40"></div>
       <div class="absolute left-3.5 right-3.5 top-[30%] h-[40%] bg-paper/90 flex flex-col justify-center items-center text-center px-1.5">
-        <div class="font-mono text-[9px] tracking-[0.14em] uppercase text-muted mb-2">book cover</div>
+        
         <div class="font-serif text-sm leading-tight font-semibold text-ink text-balance">The Overstory</div>
         <div class="font-serif text-[10px] italic text-ink-2 mt-1.5">Richard Powers</div>
       </div>
@@ -294,7 +294,7 @@
       <div class="absolute inset-0 cover-bg-terracotta"></div>
       <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-terracotta opacity-40"></div>
       <div class="absolute left-3.5 right-3.5 top-[30%] h-[40%] bg-paper/90 flex flex-col justify-center items-center text-center px-1.5">
-        <div class="font-mono text-[9px] tracking-[0.14em] uppercase text-muted mb-2">book cover</div>
+        
         <div class="font-serif text-sm leading-tight font-semibold text-ink text-balance">Pachinko</div>
         <div class="font-serif text-[10px] italic text-ink-2 mt-1.5">Min Jin Lee</div>
       </div>
@@ -350,7 +350,7 @@
       <div class="absolute inset-0 cover-bg-gold"></div>
       <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-gold opacity-40"></div>
       <div class="absolute left-3.5 right-3.5 top-[30%] h-[40%] bg-paper/90 flex flex-col justify-center items-center text-center px-1.5">
-        <div class="font-mono text-[9px] tracking-[0.14em] uppercase text-muted mb-2">book cover</div>
+        
         <div class="font-serif text-sm leading-tight font-semibold text-ink text-balance">Ficciones</div>
         <div class="font-serif text-[10px] italic text-ink-2 mt-1.5">Jorge Luis Borges</div>
       </div>
@@ -406,7 +406,7 @@
       <div class="absolute inset-0 cover-bg-forest"></div>
       <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-forest opacity-40"></div>
       <div class="absolute left-3.5 right-3.5 top-[30%] h-[40%] bg-paper/90 flex flex-col justify-center items-center text-center px-1.5">
-        <div class="font-mono text-[9px] tracking-[0.14em] uppercase text-muted mb-2">book cover</div>
+        
         <div class="font-serif text-sm leading-tight font-semibold text-ink text-balance">Mrs. Dalloway</div>
         <div class="font-serif text-[10px] italic text-ink-2 mt-1.5">Virginia Woolf</div>
       </div>
@@ -456,7 +456,7 @@
       <div class="absolute inset-0 cover-bg-forest"></div>
       <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-forest opacity-40"></div>
       <div class="absolute left-3.5 right-3.5 top-[30%] h-[40%] bg-paper/90 flex flex-col justify-center items-center text-center px-1.5">
-        <div class="font-mono text-[9px] tracking-[0.14em] uppercase text-muted mb-2">book cover</div>
+        
         <div class="font-serif text-sm leading-tight font-semibold text-ink text-balance">Annihilation</div>
         <div class="font-serif text-[10px] italic text-ink-2 mt-1.5">Jeff VanderMeer</div>
       </div>
@@ -506,7 +506,7 @@
       <div class="absolute inset-0 cover-bg-terracotta"></div>
       <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-terracotta opacity-40"></div>
       <div class="absolute left-3.5 right-3.5 top-[30%] h-[40%] bg-paper/90 flex flex-col justify-center items-center text-center px-1.5">
-        <div class="font-mono text-[9px] tracking-[0.14em] uppercase text-muted mb-2">book cover</div>
+        
         <div class="font-serif text-sm leading-tight font-semibold text-ink text-balance">The Hurting Kind</div>
         <div class="font-serif text-[10px] italic text-ink-2 mt-1.5">Ada Limón</div>
       </div>
@@ -561,7 +561,7 @@
       <div class="absolute inset-0 cover-bg-forest"></div>
       <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-forest opacity-40"></div>
       <div class="absolute left-3.5 right-3.5 top-[30%] h-[40%] bg-paper/90 flex flex-col justify-center items-center text-center px-1.5">
-        <div class="font-mono text-[9px] tracking-[0.14em] uppercase text-muted mb-2">book cover</div>
+        
         <div class="font-serif text-sm leading-tight font-semibold text-ink text-balance">How to Hide an Empire</div>
         <div class="font-serif text-[10px] italic text-ink-2 mt-1.5">Daniel Immerwahr</div>
       </div>
@@ -610,7 +610,7 @@
       <div class="absolute inset-0 cover-bg-gold"></div>
       <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-gold opacity-40"></div>
       <div class="absolute left-3.5 right-3.5 top-[30%] h-[40%] bg-paper/90 flex flex-col justify-center items-center text-center px-1.5">
-        <div class="font-mono text-[9px] tracking-[0.14em] uppercase text-muted mb-2">book cover</div>
+        
         <div class="font-serif text-sm leading-tight font-semibold text-ink text-balance">Flights</div>
         <div class="font-serif text-[10px] italic text-ink-2 mt-1.5">Olga Tokarczuk</div>
       </div>
