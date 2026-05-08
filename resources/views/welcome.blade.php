@@ -138,8 +138,7 @@
           Talk about great <em class="italic text-terracotta font-medium">books</em><br>with interesting people
         </h1>
         <p class="font-serif text-lg sm:text-[21px] leading-snug text-ink-2 mt-6 max-w-[520px]">
-          Got a book that you're dying to talk about? Set up an online book discussion and invite people from all around the world to talk about it with you. Or look for a book discussion that interests you and sign up.
-        </p>
+        Join thoughtful online book clubs and literary salons with readers around the world. Browse upcoming discussions, reserve a seat, and meet on video for a conversation about books and ideas.        </p>
         <div class="flex flex-wrap gap-3 mt-8 items-center">
           @auth
             <!-- <a href="{{ route('books.list') }}"
