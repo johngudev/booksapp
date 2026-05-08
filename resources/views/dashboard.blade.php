@@ -10,8 +10,8 @@
   {{-- ============================================================ --}}
   <section class="pt-12 sm:pt-16 lg:pt-[72px] pb-8">
     <div class="font-mono text-[11px] tracking-[0.18em] uppercase text-terracotta mb-4">— your dashboard</div>
-    <h1 class="font-serif text-[44px] sm:text-6xl lg:text-[84px] font-medium leading-[0.98] tracking-[-0.03em] text-ink text-balance m-0">
-      Welcome back,<br><em class="italic text-terracotta font-medium">{{ Auth::user()->name }}</em>
+    <h1 class="font-serif text-[32px] sm:text-5xl lg:text-[60px] font-medium leading-[0.98] tracking-[-0.03em] text-ink text-balance m-0">
+      Welcome back, <em class="italic text-terracotta font-medium">{{ Auth::user()->name }}</em>
     </h1>
     @php
       $attendingCount = Auth::user()->attendingMeetings()->count();

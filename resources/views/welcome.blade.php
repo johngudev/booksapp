@@ -54,7 +54,7 @@
     <style>
       /* Things awkward in pure Tailwind: OKLCH gradients, layered shadows, decorative patterns. */
 
-      /* added for smooth scrolling of browse clubs button tag */
+      /* added for smooth scrolling of browse events button tag */
       html { scroll-behavior: smooth; }
 
 
@@ -97,7 +97,7 @@
       <span class="font-serif text-[22px] font-semibold italic tracking-tight text-ink">novelglot</span>
     </a>
     <nav class="flex items-center gap-1 sm:gap-2">
-      <a class="hidden md:inline-block px-3.5 py-2 text-sm text-ink-2 hover:text-ink transition-colors" href="#listing">Browse clubs</a>
+      <a class="hidden md:inline-block px-3.5 py-2 text-sm text-ink-2 hover:text-ink transition-colors" href="#listing">Browse events</a>
       <span class="hidden md:inline-block w-px h-5 bg-rule mx-3"></span>
 
       @auth
@@ -131,16 +131,14 @@
 
   {{-- Hero --}}
   <section class="pt-12 sm:pt-16 lg:pt-[72px] pb-8">
-    <div class="font-mono text-[11px] tracking-[0.18em] uppercase text-terracotta mb-4">— novelglot · online book clubs</div>
+    <div class="font-mono text-[11px] tracking-[0.18em] uppercase text-terracotta mb-4">— novelglot · online book clubs & intellectual salons</div>
     <div class="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-10 lg:gap-16 items-end">
       <div>
-        <h1 class="font-serif text-[44px] sm:text-6xl lg:text-[84px] font-medium leading-[0.98] tracking-[-0.03em] text-ink text-balance m-0">
-          Talk about your<br>favorite <em class="italic text-terracotta font-medium">books</em>
+        <h1 class="font-serif text-[32px] sm:text-5xl lg:text-[64px] font-medium leading-[0.98] tracking-[-0.03em] text-ink text-balance m-0">
+          Talk about great <em class="italic text-terracotta font-medium">books</em><br>with interesting people
         </h1>
         <p class="font-serif text-lg sm:text-[21px] leading-snug text-ink-2 mt-6 max-w-[520px]">
-          Small online book clubs that meet over video. One book, a handful of readers,
-          an hour of unhurried conversation. No groups to manage, no chat threads to keep up with —
-          just the next meeting on the calendar.
+          Got a book that you're dying to talk about? Set up an online book discussion and invite people from all around the world to talk about it with you. Or look for a book discussion that interests you and sign up.
         </p>
         <div class="flex flex-wrap gap-3 mt-8 items-center">
           @auth
@@ -173,26 +171,26 @@
       </div>
 
       <aside class="p-7 sm:p-8 border border-rule rounded-2xl bg-paper">
-        <div class="font-mono text-[10px] tracking-[0.18em] uppercase text-muted mb-4">How a club works</div>
+        <div class="font-mono text-[10px] tracking-[0.18em] uppercase text-muted mb-4">How it works</div>
         <div class="flex gap-3.5 py-3.5 border-t border-rule first:border-t-0">
           <div class="font-mono text-[11px] text-terracotta font-medium pt-0.5">01</div>
           <div>
-            <div class="font-serif text-[17px] font-semibold text-ink tracking-tight">Reserve a seat</div>
-            <div class="text-[13px] text-ink-2 leading-snug mt-1">Pick a club whose book and time you like. 6–20 readers per session.</div>
+            <div class="font-serif text-[17px] font-semibold text-ink tracking-tight">Find a discussion</div>
+            <div class="text-[13px] text-ink-2 leading-snug mt-1">Browse our calendar of events to find a book club or online salon that interests you.</div>
           </div>
         </div>
         <div class="flex gap-3.5 py-3.5 border-t border-rule">
           <div class="font-mono text-[11px] text-terracotta font-medium pt-0.5">02</div>
           <div>
-            <div class="font-serif text-[17px] font-semibold text-ink tracking-tight">Read at your own pace</div>
-            <div class="text-[13px] text-ink-2 leading-snug mt-1">Most clubs read together over 2–4 weeks. No homework, no quizzes.</div>
+            <div class="font-serif text-[17px] font-semibold text-ink tracking-tight">Reserve a seat</div>
+            <div class="text-[13px] text-ink-2 leading-snug mt-1">Register for an event with just a few clicks.</div>
           </div>
         </div>
         <div class="flex gap-3.5 py-3.5 border-t border-rule">
           <div class="font-mono text-[11px] text-terracotta font-medium pt-0.5">03</div>
           <div>
             <div class="font-serif text-[17px] font-semibold text-ink tracking-tight">Meet on video</div>
-            <div class="text-[13px] text-ink-2 leading-snug mt-1">A 60–90 minute conversation, hosted by a real reader — not a moderator.</div>
+            <div class="text-[13px] text-ink-2 leading-snug mt-1">A 60–90 minute conversation about books, essays, and ideas with people from around the world.</div>
           </div>
         </div>
       </aside>
@@ -200,7 +198,7 @@
   </section>
 
   {{-- Listing intro banner --}}
-  <div id="listing" class="mt-8 px-5 sm:px-6 py-5 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-6 bg-paper-2 rounded-xl">
+  <!-- <div id="listing" class="mt-8 px-5 sm:px-6 py-5 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-6 bg-paper-2 rounded-xl">
     <div>
       <h2 class="m-0 font-serif text-[22px] font-semibold text-ink tracking-tight">Upcoming book clubs</h2>
       <p class="mt-0.5 mb-0 text-[13px] text-ink-2">Eight clubs meeting in the next ten days. Sign up to reserve a seat.</p>
@@ -216,7 +214,7 @@
         Sign up — it's free
       </a>
     @endauth
-  </div>
+  </div> -->
 
   {{--
     -------------------------------------------------------------------------
@@ -229,7 +227,7 @@
   --}}
 
   {{-- Today --}}
-  <div class="flex items-baseline gap-3.5 pb-1.5 mt-12">
+  <div id="listing" class="flex items-baseline gap-3.5 pb-1.5 mt-12">
     <h2 class="m-0 font-serif text-[13px] font-semibold tracking-[0.16em] uppercase text-ink">— Today</h2>
     <span class="font-mono text-xs text-muted">2 clubs</span>
   </div>
