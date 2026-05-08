@@ -131,7 +131,7 @@
 
   {{-- Hero --}}
   <section class="pt-12 sm:pt-16 lg:pt-[72px] pb-8">
-    <div class="font-mono text-[11px] tracking-[0.18em] uppercase text-terracotta mb-4">— novelglot · online book clubs & intellectual salons</div>
+    <div class="font-mono text-[11px] tracking-[0.18em] uppercase text-terracotta mb-4">— novelglot · online book clubs & literary salons</div>
     <div class="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-10 lg:gap-16 items-end">
       <div>
         <h1 class="font-serif text-[32px] sm:text-5xl lg:text-[64px] font-medium leading-[0.98] tracking-[-0.03em] text-ink text-balance m-0">
